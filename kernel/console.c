@@ -55,6 +55,9 @@ PUBLIC void init_screen(TTY* p_tty)
 	}
 
 	set_cursor(p_tty->p_console->cursor);
+
+	//增加对input_char_ptr的初始化
+	input_char_ptr = 0;
 }
 
 
@@ -81,21 +84,45 @@ PUBLIC void out_char(CONSOLE* p_con, char ch)
 			p_con->cursor = p_con->original_addr + SCREEN_WIDTH * 
 				((p_con->cursor - p_con->original_addr) /
 				 SCREEN_WIDTH + 1);
+			//输入字符列表添加换行符
+			input_char[input_char_ptr] = '\n';
+			input_char_position[input_char_ptr] = p_con->cursor;
+			input_char_ptr++;
 		}
 		break;
 	case '\b':
 		if (p_con->cursor > p_con->original_addr) {
-			p_con->cursor--;
-			*(p_vmem-2) = ' ';
-			*(p_vmem-1) = DEFAULT_CHAR_COLOR;
+			//原始代码
+			// p_con->cursor--;
+			// *(p_vmem-2) = ' ';
+			// *(p_vmem-1) = DEFAULT_CHAR_COLOR;
+
+			//修改后的退格键代码
+			input_char_ptr--;
+			input_char[input_char_ptr] = 0;
+			while(p_con->cursor > input_char_position[input_char_ptr]){
+				p_con->cursor--;
+				*(p_vmem-2) = ' ';
+				*(p_vmem-1) = DEFAULT_CHAR_COLOR;
+			}
+
 		}
+		break;
+	//TAB键的输出处理
+	case '\t':
 		break;
 	default:
 		if (p_con->cursor <
 		    p_con->original_addr + p_con->v_mem_limit - 1) {
+			//增加对屏幕字符及其对应起始位置的保存
+			input_char[input_char_ptr] = ch;
+			input_char_position[input_char_ptr] = p_con->cursor;
+			input_char_ptr++;
+
+			//原始代码
 			*p_vmem++ = ch;
 			*p_vmem++ = DEFAULT_CHAR_COLOR;
-			p_con->cursor++;
+			p_con->cursor++;			
 		}
 		break;
 	}

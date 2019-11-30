@@ -33,4 +33,8 @@ extern	irq_handler	irq_table[];
 extern	TTY		tty_table[];
 extern  CONSOLE         console_table[];
 
+//自己增加的全局变量
+EXTERN char input_char[2048];   //保存非查找模式下输入的字符
+EXTERN int input_char_position[2048];   //保存非查找模式下输入的字符对应的起始位置
+EXTERN int input_char_ptr;  //光标指向处对应字符在input_char中的位置
 
