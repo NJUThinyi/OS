@@ -110,6 +110,17 @@ PUBLIC void out_char(CONSOLE* p_con, char ch)
 		break;
 	//TAB键的输出处理
 	case '\t':
+		if (p_con->cursor <
+		    p_con->original_addr + p_con->v_mem_limit - 1) {
+				input_char[input_char_ptr] = ch;
+				input_char_position[input_char_ptr] = p_con->cursor;
+				input_char_ptr++;
+				for(int i=0;i<4;i++){
+					*p_vmem++ = ' ';
+					*p_vmem++ = DEFAULT_CHAR_COLOR;
+					p_con->cursor++;
+				}
+			}
 		break;
 	default:
 		if (p_con->cursor <
