@@ -122,6 +122,9 @@ PUBLIC void out_char(CONSOLE* p_con, char ch)
 				}
 			}
 		break;
+	case ' ':
+		out_char(p_con, '#');
+		break;
 	default:
 		if (p_con->cursor <
 		    p_con->original_addr + p_con->v_mem_limit - 1) {
