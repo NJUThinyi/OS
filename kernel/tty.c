@@ -51,6 +51,7 @@ PUBLIC void task_tty()
 
 	//任务开始时默认非查找模式
 	find_mode = 0;
+	is_mask=0;
 }
 
 /*======================================================================*
@@ -71,18 +72,27 @@ PRIVATE void init_tty(TTY* p_tty)
  *======================================================================*/
 PUBLIC void in_process(TTY* p_tty, u32 key)
 {
-        char output[2] = {'\0', '\0'};
+	char output[2] = {'\0', '\0'};
 
-        if (!(key & FLAG_EXT)) {
-			put_key(p_tty, key);
-        }
-        else {
-			int raw_code = key & MASK_RAW;
+	//添加是否屏蔽的判断
+	if (!(key & FLAG_EXT)&&!is_mask) {
+		put_key(p_tty, key);
+	}else {
+		int raw_code = key & MASK_RAW;
+		if(is_mask){
+			if(raw_code==ESC){
+				if(find_mode){
+					recover(p_tty);
+					find_mode = 0;
+				}
+			}
+		}else{
 			switch(raw_code) {
 			case ENTER:
 				if(find_mode){
-					int matched_str_num=do_search(p_tty);
-					find_show(p_tty,matched_str_num);
+					do_search(p_tty);
+					find_show(p_tty);
+					is_mask=1;
 				}else{
 					put_key(p_tty, '\n');
 				}
@@ -132,6 +142,7 @@ PUBLIC void in_process(TTY* p_tty, u32 key)
 			break;
 			default:
 				break;
+			}
 		}
 	}
 }

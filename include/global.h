@@ -45,3 +45,5 @@ EXTERN int find_ptr;    //查找模式下的对应字符在find_char中的位置
 EXTERN int before_find_cursor;  //进入查找模式前光标的位置
 
 EXTERN int matched_str_num; //每次查找时匹配到的字符串个数
+
+EXTERN int is_mask; //0:不屏蔽，1：屏蔽
