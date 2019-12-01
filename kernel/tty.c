@@ -126,7 +126,7 @@ PUBLIC void in_process(TTY* p_tty, u32 key)
 			break;
 			default:
 				//断电
-				disp_str("#");
+				out_char(tty_table->p_console, '#');
 				break;
 		}
 	}
