@@ -84,6 +84,7 @@ PUBLIC void in_process(TTY* p_tty, u32 key)
 				if(find_mode){
 					recover(p_tty);
 					find_mode = 0;
+					is_mask=0;
 				}
 			}
 		}else{
