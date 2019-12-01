@@ -248,6 +248,29 @@ PUBLIC void scroll_screen(CONSOLE* p_con, int direction)
 //定时（20s）清屏函数
 PUBLIC void clean_screen(){
 	disable_int();
-	init_screen(tty_table);
+	TTY* p_tty = tty_table;
+
+	//初始化清屏
+	CONSOLE* p_con = p_tty->p_console;
+	int start = p_con->original_addr;
+	int end = p_con->cursor;
+	u8* p_vmem = (u8*)(V_MEM_BASE+p_con->original_addr*2);
+	// char* p_vmem = (char *)(V_MEM_BASE+p_con->cursor*2);
+	for(int i = start;i<end;i++){
+		*p_vmem++=' ';
+		*p_vmem++=DEFAULT_CHAR_COLOR;
+		p_con->cursor--;		
+	}
+	
+	//移动光标到屏幕左上角
+	set_cursor(p_con->cursor);
+
+	//增加对input_char_ptr的初始化,对输入存储数组初始化
+	for(int i = 0; i<input_char_ptr;i++){
+		input_char[i]=' ';
+		input_char_position[i]=0;
+	}
+	input_char_ptr = 0;
+	
 	enable_int();
 }
