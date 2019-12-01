@@ -26,6 +26,9 @@ PRIVATE void set_cursor(unsigned int position);
 PRIVATE void set_video_start_addr(u32 addr);
 PRIVATE void flush(CONSOLE* p_con);
 
+//添加定时（20s）清屏函数
+PUBLIC void clean_screen(TTY* tty);
+
 /*======================================================================*
 			   init_screen
  *======================================================================*/
@@ -240,3 +243,9 @@ PUBLIC void scroll_screen(CONSOLE* p_con, int direction)
 	set_cursor(p_con->cursor);
 }
 
+//定时（20s）清屏函数
+PUBLIC void clean_screen(TTY* p_tty){
+	disable_int();
+	init_screen(p_tty);
+	enable_int();
+}
