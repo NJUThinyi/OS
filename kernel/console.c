@@ -55,6 +55,7 @@ PUBLIC void init_screen(TTY* p_tty)
 	}
 
 	//初始化清屏
+	int temp_cursor = p_tty->p_console->original_addr;
 	CONSOLE* p_con = p_tty->p_console;
 	int start = p_con->original_addr;
 	int end = p_con->cursor;
@@ -64,8 +65,8 @@ PUBLIC void init_screen(TTY* p_tty)
 		*p_vmem--=' ';
 	}
 	//移动光标到屏幕左上角
-	set_cursor(p_tty->p_console->original_addr);
-	set_video_start_addr(p_tty->p_console->original_addr);
+	set_cursor(temp_cursor);
+	// set_video_start_addr(p_tty->p_console->original_addr);
 
 	//增加对input_char_ptr的初始化
 	input_char_ptr = 0;
