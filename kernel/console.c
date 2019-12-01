@@ -61,8 +61,8 @@ PUBLIC void init_screen(TTY* p_tty)
 	CONSOLE* p_con = p_tty->p_console;
 	int start = p_con->original_addr;
 	int end = p_con->cursor;
-	// u8* p_vmem = (u8*)(V_MEM_BASE+p_con->original_addr*2);
-	char* p_vmem = (char *)(V_MEM_BASE+p_con->cursor*2);
+	u8* p_vmem = (u8*)(V_MEM_BASE+p_con->original_addr*2);
+	// char* p_vmem = (char *)(V_MEM_BASE+p_con->cursor*2);
 	for(int i = start;i<end;i++){
 		*p_vmem++=' ';
 		*p_vmem++=DEFAULT_CHAR_COLOR;
