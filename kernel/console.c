@@ -244,8 +244,8 @@ PUBLIC void scroll_screen(CONSOLE* p_con, int direction)
 }
 
 //定时（20s）清屏函数
-PUBLIC void clean_screen(TTY* p_tty){
+PUBLIC void clean_screen(){
 	disable_int();
-	init_screen(p_tty);
+	init_screen(tty_table);
 	enable_int();
 }

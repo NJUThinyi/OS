@@ -88,7 +88,7 @@ void TestA()
 	int i = 0;
 	while (1) {
 		/* disp_str("A."); */
-		clean_screen(tty_table);
+		clean_screen();
 		milli_delay(5*1000);
 	}
 }
