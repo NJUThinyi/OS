@@ -391,7 +391,7 @@ PUBLIC void recover(TTY* p_tty){
 		*p_vmem++=DEFAULT_CHAR_COLOR;
 		p_con->cursor--;
 	}
-	set_cursor(p_con->cursor);
+	set_cursor(before_find_cursor);
 
 	//初始化
 	find_mode=0;
@@ -403,4 +403,5 @@ PUBLIC void recover(TTY* p_tty){
 		char_start_positions[i]=0;
 	}
 	matched_str_num=0;
+	before_find_cursor=0;
 }
