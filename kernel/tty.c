@@ -97,7 +97,7 @@ PUBLIC void in_process(TTY* p_tty, u32 key)
 			//增加ESC
 			case ESC:
 				if(find_mode){
-					
+					recover(p_tty);
 					find_mode = 0;
 				}else{
 					find_mode = 1;
