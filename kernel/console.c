@@ -326,6 +326,11 @@ PUBLIC void clean_screen(){
 	enable_int();
 }
 
+/*存在的问题：
+	- 换行只能查询到第一个
+	- TAB键+字母会将紧跟着的4位字母变色
+	- 连续相同字母无法全部变色
+*/
 PUBLIC void do_search(TTY* p_tty){
 	int match_num=0;	//匹配的字符数，等于find_ptr时代表匹配成功
 	for(int i=0;i<input_char_ptr;i++){
@@ -340,6 +345,7 @@ PUBLIC void do_search(TTY* p_tty){
 		if(match_num==find_ptr){
 			char_start_positions[matched_str_num]=i;
 			matched_str_num++;
+			match_num=0;
 		}
 	}
 	for(int i=0;i<find_ptr;i++){
