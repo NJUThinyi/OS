@@ -65,6 +65,7 @@ PUBLIC void init_screen(TTY* p_tty)
 	}
 	//移动光标到屏幕左上角
 	set_cursor(p_tty->p_console->original_addr);
+	set_video_start_addr(p_tty->p_console->original_addr);
 
 	//增加对input_char_ptr的初始化
 	input_char_ptr = 0;
