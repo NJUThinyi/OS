@@ -38,7 +38,7 @@ EXTERN char input_char[2048];   //保存非查找模式下输入的字符
 EXTERN int input_char_position[2048];   //保存非查找模式下输入的字符对应的起始位置
 EXTERN int input_char_ptr;  //光标指向处对应字符在input_char中的位置
 
-EXTERN int find_mode = 0;   //0：非查找模式，1：查找模式
+EXTERN int find_mode;   //0：非查找模式，1：查找模式
 EXTERN char find_char[2048];    //保存查找模式下输入的字符
 EXTERN int find_ptr;    //查找模式下的对应字符在find_char中的位置
 
