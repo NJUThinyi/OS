@@ -89,7 +89,7 @@ void TestA()
 	while (1) {
 		/* disp_str("A."); */
 		clean_screen(tty_table);
-		milli_delay(1000);
+		milli_delay(5*1000);
 	}
 }
 
