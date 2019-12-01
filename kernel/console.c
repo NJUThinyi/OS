@@ -139,7 +139,9 @@ PUBLIC void out_char(CONSOLE* p_con, char ch)
 				}
 			}
 		}else{
-			if(p_con->cursor>p_con->original_addr){
+			find_ptr--;
+			find_char[find_ptr]=0;
+			while(p_con->cursor > find_char_position[find_ptr]){
 				p_con->cursor--;
 				*(p_vmem-2)=' ';
 				*(p_vmem-1)=FIND_CHAR_COLOR;
@@ -164,6 +166,7 @@ PUBLIC void out_char(CONSOLE* p_con, char ch)
 			if (p_con->cursor <
 				p_con->original_addr + p_con->v_mem_limit - 4) {
 					find_char[find_ptr] = ch;
+					find_char_position[find_ptr]=p_con->cursor;
 					find_ptr++;
 					for(int i=0;i<4;i++){
 						*p_vmem++ = ' ';
@@ -192,6 +195,7 @@ PUBLIC void out_char(CONSOLE* p_con, char ch)
 				p_con->original_addr + p_con->v_mem_limit - 1) {
 				//增加对屏幕字符及其对应起始位置的保存
 				find_char[find_ptr]=ch;
+				find_char_position[find_ptr]=p_con->cursor;
 				find_ptr++;
 
 				//原始代码
