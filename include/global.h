@@ -43,3 +43,4 @@ EXTERN char find_char[2048];    //保存查找模式下输入的字符
 EXTERN int find_ptr;    //查找模式下的对应字符在find_char中的位置
 
 EXTERN int before_find_cursor;  //进入查找模式前光标的位置
+// EXTERN u8* p_vmem_copy; //进入查找模式前对显存进行copy

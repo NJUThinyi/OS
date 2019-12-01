@@ -40,11 +40,15 @@ PUBLIC void task_tty()
 	}
 	select_console(0);
 	while (1) {
-		for (p_tty=TTY_FIRST;p_tty<TTY_END;p_tty++) {
-			tty_do_read(p_tty);
-			tty_do_write(p_tty);
-		}
+		p_tty=TTY_FIRST;
+		tty_do_read(p_tty);
+		tty_do_write(p_tty);
+		// for (p_tty=TTY_FIRST;p_tty<TTY_END;p_tty++) {
+		// 	tty_do_read(p_tty);
+		// 	tty_do_write(p_tty);
+		// }
 	}
+
 	//任务开始时默认非查找模式
 	find_mode = 0;
 }
@@ -77,7 +81,8 @@ PUBLIC void in_process(TTY* p_tty, u32 key)
 			switch(raw_code) {
 			case ENTER:
 				if(find_mode){
-					do_search();
+					int matched_str_num=do_search(p_tty);
+					find_show(p_tty,matched_str_num);
 				}else{
 					put_key(p_tty, '\n');
 				}
@@ -92,6 +97,7 @@ PUBLIC void in_process(TTY* p_tty, u32 key)
 			//增加ESC
 			case ESC:
 				if(find_mode){
+					
 					find_mode = 0;
 				}else{
 					find_mode = 1;

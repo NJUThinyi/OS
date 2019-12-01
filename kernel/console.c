@@ -29,9 +29,11 @@ PRIVATE void flush(CONSOLE* p_con);
 //添加定时（20s）清屏函数
 PUBLIC void clean_screen();
 //添加查找函数
-PUBLIC void do_search();
+PUBLIC int do_search(TTY* p_tty);
 //添加查找模式显示函数
-PUBLIC void find_show();
+PUBLIC void find_show(TTY* p_tty, int matched_str_num);
+
+int char_start_positions[SCREEN_WIDTH*25];	//存储匹配的字符串的起始位置
 
 /*======================================================================*
 			   init_screen
@@ -114,7 +116,7 @@ PUBLIC void out_char(CONSOLE* p_con, char ch)
 				
 			}
 		}else{
-			find_show();
+			
 		}
 		break;
 	case '\b':
@@ -318,10 +320,60 @@ PUBLIC void clean_screen(){
 	enable_int();
 }
 
-PUBLIC void do_search(){
-
+PUBLIC int do_search(TTY* p_tty){
+	before_find_cursor = p_tty->p_console->cursor;
+	int match_num=0;	//匹配的字符数，等于find_ptr时代表匹配成功
+	int matched_str_num=0;	//符合的字符串个数
+	for(int i=0;i<input_char_ptr;i++){
+		for(int j=0;j<find_ptr;j++){
+			if(input_char[i+j]==find_char[j]){
+				match_num++;
+			}else{
+				match_num=0;
+				break;
+			}
+		}
+		if(match_num==find_ptr){
+			char_start_positions[matched_str_num]=i;
+			matched_str_num++;
+		}
+	}
+	for(int i=0;i<find_ptr;i++){
+		char_start_positions[matched_str_num]=before_find_cursor;
+		matched_str_num++;
+	}
+	return matched_str_num;
 }
 
-PUBLIC void find_show(){
+PUBLIC void find_show(TTY* p_tty, int matched_str_num){
+	CONSOLE* p_con = p_tty->p_console;
+	int start = p_con->original_addr;
+	int end = p_con->cursor;
+	u8* p_vmem = (u8*)(V_MEM_BASE+p_con->original_addr*2);
+	int count=0;
+	int i=start;
+
+	while(i<end){
+		if(i==char_start_positions[count]){
+			for(int j=0;j<find_ptr;j++){
+				if(find_char[count]=='\t'){
+					for(int k=0;k<4;k++){
+						*p_vmem++;
+						*p_vmem++ = FIND_CHAR_COLOR;
+						i++;
+					}
+				}else{
+					*p_vmem++;
+					*p_vmem++ = FIND_CHAR_COLOR;
+					i++;
+				}
+			}
+			count++;
+		}else{
+			*p_vmem++;
+			*p_vmem++;
+			i++;
+		}
+	}
 
 }
