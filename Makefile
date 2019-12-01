@@ -41,7 +41,7 @@ everything : $(ORANGESBOOT) $(ORANGESKERNEL)
 
 all : realclean everything
 
-image : realclean everything clean buildimg
+image : realclean everything clean buildimg 
 
 clean :
 	rm -f $(OBJS)
@@ -53,6 +53,7 @@ disasm :
 	$(DASM) $(DASMFLAGS) $(ORANGESKERNEL) > $(DASMOUTPUT)
 
 run :
+	image
 	bochs -f bochsrc
 
 # We assume that "a.img" exists in current folder
