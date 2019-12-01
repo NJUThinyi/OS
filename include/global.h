@@ -44,3 +44,5 @@ EXTERN int find_ptr;    //查找模式下的对应字符在find_char中的位置
 
 EXTERN int before_find_cursor;  //进入查找模式前光标的位置
 // EXTERN u8* p_vmem_copy; //进入查找模式前对显存进行copy
+
+EXTERN int matched_str_num; //每次查找时匹配到的字符串个数
