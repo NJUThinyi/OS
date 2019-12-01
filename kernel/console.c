@@ -61,12 +61,14 @@ PUBLIC void init_screen(TTY* p_tty)
 	CONSOLE* p_con = p_tty->p_console;
 	int start = p_con->original_addr;
 	int end = p_con->cursor;
-	u8* p_vmem = (u8*)(V_MEM_BASE+p_con->original_addr*2);
+	// u8* p_vmem = (u8*)(V_MEM_BASE+p_con->original_addr*2);
+	char* p_vmem = (char *)(V_MEM_BASE+p_con->cursor*2);
 	for(int i = start;i<end;i++){
 		*p_vmem++=' ';
 		*p_vmem++=DEFAULT_CHAR_COLOR;
 		p_con->cursor--;		
 	}
+	
 	//移动光标到屏幕左上角
 	set_cursor(p_con->cursor);
 
@@ -246,6 +248,6 @@ PUBLIC void scroll_screen(CONSOLE* p_con, int direction)
 //定时（20s）清屏函数
 PUBLIC void clean_screen(){
 	disable_int();
-	init_screen(tty_table);
+	
 	enable_int();
 }
