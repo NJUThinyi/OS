@@ -44,15 +44,15 @@ PUBLIC void init_screen(TTY* p_tty)
 	/* 默认光标位置在最开始处 */
 	p_tty->p_console->cursor = p_tty->p_console->original_addr;
 
-	if (nr_tty == 0) {
-		/* 第一个控制台沿用原来的光标位置 */
-		p_tty->p_console->cursor = disp_pos / 2;
-		disp_pos = 0;
-	}
-	else {
-		out_char(p_tty->p_console, nr_tty + '0');
-		out_char(p_tty->p_console, '#');
-	}
+	// if (nr_tty == 0) {
+	// 	/* 第一个控制台沿用原来的光标位置 */
+	// 	p_tty->p_console->cursor = disp_pos / 2;
+	// 	disp_pos = 0;
+	// }
+	// else {
+	// 	out_char(p_tty->p_console, nr_tty + '0');
+	// 	out_char(p_tty->p_console, '#');
+	// }
 
 	set_cursor(p_tty->p_console->cursor);
 
@@ -85,7 +85,7 @@ PUBLIC void out_char(CONSOLE* p_con, char ch)
 			input_char[input_char_ptr] = '\n';
 			input_char_position[input_char_ptr] = p_con->cursor;
 			input_char_ptr++;
-			
+
 			p_con->cursor = p_con->original_addr + SCREEN_WIDTH * 
 				((p_con->cursor - p_con->original_addr) /
 				 SCREEN_WIDTH + 1);
