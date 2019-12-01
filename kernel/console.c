@@ -327,7 +327,6 @@ PUBLIC void clean_screen(){
 }
 
 PUBLIC void do_search(TTY* p_tty){
-	before_find_cursor = p_tty->p_console->cursor;
 	int match_num=0;	//匹配的字符数，等于find_ptr时代表匹配成功
 	for(int i=0;i<input_char_ptr;i++){
 		for(int j=0;j<find_ptr;j++){
@@ -390,12 +389,12 @@ PUBLIC void recover(TTY* p_tty){
 		*p_vmem++;
 		*p_vmem++=DEFAULT_CHAR_COLOR;
 	}
-	// for(int i=before_find_cursor;i<end;i++){
-	// 	*p_vmem++=' ';
-	// 	*p_vmem++=DEFAULT_CHAR_COLOR;
-	// 	p_con->cursor--;
-	// }
-	// set_cursor(before_find_cursor);
+	for(int i=before_find_cursor;i<end;i++){
+		*p_vmem++=' ';
+		*p_vmem++=DEFAULT_CHAR_COLOR;
+		p_con->cursor--;
+	}
+	set_cursor(before_find_cursor);
 
 	//初始化
 	find_mode=0;

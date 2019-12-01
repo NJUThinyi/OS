@@ -112,6 +112,7 @@ PUBLIC void in_process(TTY* p_tty, u32 key)
 					find_mode = 0;
 				}else{
 					find_mode = 1;
+					before_find_cursor=p_tty->p_console->cursor;
 				}
 				break;
 			case UP:
