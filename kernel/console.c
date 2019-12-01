@@ -386,12 +386,12 @@ PUBLIC void recover(TTY* p_tty){
 		*p_vmem++;
 		*p_vmem++=DEFAULT_CHAR_COLOR;
 	}
-	for(int i=before_find_cursor;i<end;i++){
-		*p_vmem++=' ';
-		*p_vmem++=DEFAULT_CHAR_COLOR;
-		p_con->cursor--;
-	}
-	set_cursor(before_find_cursor);
+	// for(int i=before_find_cursor;i<end;i++){
+	// 	*p_vmem++=' ';
+	// 	*p_vmem++=DEFAULT_CHAR_COLOR;
+	// 	p_con->cursor--;
+	// }
+	// set_cursor(before_find_cursor);
 
 	//初始化
 	find_mode=0;
