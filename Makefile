@@ -53,7 +53,7 @@ disasm :
 	$(DASM) $(DASMFLAGS) $(ORANGESKERNEL) > $(DASMOUTPUT)
 
 run :
-	image
+	make image
 	bochs -f bochsrc
 
 # We assume that "a.img" exists in current folder
