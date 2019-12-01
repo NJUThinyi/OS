@@ -27,7 +27,7 @@ PRIVATE void set_video_start_addr(u32 addr);
 PRIVATE void flush(CONSOLE* p_con);
 
 //添加定时（20s）清屏函数
-PUBLIC void clean_screen(TTY* tty);
+PUBLIC void clean_screen();
 
 /*======================================================================*
 			   init_screen
