@@ -74,7 +74,11 @@ PUBLIC void in_process(TTY* p_tty, u32 key)
 			int raw_code = key & MASK_RAW;
 			switch(raw_code) {
 			case ENTER:
-				put_key(p_tty, '\n');
+				if(find_mode){
+					do_search();
+				}else{
+					put_key(p_tty, '\n');
+				}
 				break;
 			case BACKSPACE:
 				put_key(p_tty, '\b');
@@ -82,6 +86,14 @@ PUBLIC void in_process(TTY* p_tty, u32 key)
 			//增加TAB
 			case TAB:
 				put_key(p_tty, '\t');
+				break;
+			//增加ESC
+			case ESC:
+				if(find_mode){
+					find_mode = 0;
+				}else{
+					find_mode = 1;
+				}
 				break;
 			case UP:
 					if ((key & FLAG_SHIFT_L) || (key & FLAG_SHIFT_R)) {

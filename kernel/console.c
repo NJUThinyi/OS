@@ -28,6 +28,10 @@ PRIVATE void flush(CONSOLE* p_con);
 
 //添加定时（20s）清屏函数
 PUBLIC void clean_screen();
+//添加查找函数
+PUBLIC void do_search();
+//添加查找模式显示函数
+PUBLIC void find_show();
 
 /*======================================================================*
 			   init_screen
@@ -95,63 +99,101 @@ PUBLIC void out_char(CONSOLE* p_con, char ch)
 
 	switch(ch) {
 	case '\n':
-		if (p_con->cursor < p_con->original_addr +
-		    p_con->v_mem_limit - SCREEN_WIDTH) {
-			//输入字符列表添加换行符
-			input_char[input_char_ptr] = '\n';
-			input_char_position[input_char_ptr] = p_con->cursor;
-			input_char_ptr++;
+		if(!find_mode){
+			if (p_con->cursor < p_con->original_addr +
+				p_con->v_mem_limit - SCREEN_WIDTH) {
+				//输入字符列表添加换行符
+				input_char[input_char_ptr] = '\n';
+				input_char_position[input_char_ptr] = p_con->cursor;
+				input_char_ptr++;
 
-			p_con->cursor = p_con->original_addr + SCREEN_WIDTH * 
-				((p_con->cursor - p_con->original_addr) /
-				 SCREEN_WIDTH + 1);
-			
+				p_con->cursor = p_con->original_addr + SCREEN_WIDTH * 
+					((p_con->cursor - p_con->original_addr) /
+					SCREEN_WIDTH + 1);
+				
+			}
+		}else{
+			find_show();
 		}
 		break;
 	case '\b':
-		if (p_con->cursor > p_con->original_addr) {
-			//原始代码
-			// p_con->cursor--;
-			// *(p_vmem-2) = ' ';
-			// *(p_vmem-1) = DEFAULT_CHAR_COLOR;
+		if(!find_mode){
+			if (p_con->cursor > p_con->original_addr) {
+				//原始代码
+				// p_con->cursor--;
+				// *(p_vmem-2) = ' ';
+				// *(p_vmem-1) = DEFAULT_CHAR_COLOR;
 
-			//修改后的退格键代码
-			input_char_ptr--;
-			input_char[input_char_ptr] = 0;
-			while(p_con->cursor > input_char_position[input_char_ptr]){
-				p_con->cursor--;
-				*(p_vmem-2) = ' ';
-				*(p_vmem-1) = DEFAULT_CHAR_COLOR;
+				//修改后的退格键代码
+				input_char_ptr--;
+				input_char[input_char_ptr] = 0;
+				while(p_con->cursor > input_char_position[input_char_ptr]){
+					p_con->cursor--;
+					*(p_vmem-2) = ' ';
+					*(p_vmem-1) = DEFAULT_CHAR_COLOR;
+				}
 			}
-
+		}else{
+			if(p_con->cursor>p_con->original_addr){
+				p_con->cursor--;
+				*(p_vmem-2)=' ';
+				*(p_vmem-1)=FIND_CHAR_COLOR;
+			}
 		}
 		break;
 	//TAB键的输出处理
 	case '\t':
-		if (p_con->cursor <
-		    p_con->original_addr + p_con->v_mem_limit - 1) {
+		if(!find_mode){
+			if (p_con->cursor <
+				p_con->original_addr + p_con->v_mem_limit - 4) {
+					input_char[input_char_ptr] = ch;
+					input_char_position[input_char_ptr] = p_con->cursor;
+					input_char_ptr++;
+					for(int i=0;i<4;i++){
+						*p_vmem++ = ' ';
+						*p_vmem++ = DEFAULT_CHAR_COLOR;
+						p_con->cursor++;
+					}
+			}
+		}else{
+			if (p_con->cursor <
+				p_con->original_addr + p_con->v_mem_limit - 4) {
+					find_char[find_ptr] = ch;
+					find_ptr++;
+					for(int i=0;i<4;i++){
+						*p_vmem++ = ' ';
+						*p_vmem++ = FIND_CHAR_COLOR;
+						p_con->cursor++;
+					}
+				}
+		}
+		break;
+	default:
+		if(!find_mode){
+			if (p_con->cursor <
+				p_con->original_addr + p_con->v_mem_limit - 1) {
+				//增加对屏幕字符及其对应起始位置的保存
 				input_char[input_char_ptr] = ch;
 				input_char_position[input_char_ptr] = p_con->cursor;
 				input_char_ptr++;
-				for(int i=0;i<4;i++){
-					*p_vmem++ = ' ';
-					*p_vmem++ = DEFAULT_CHAR_COLOR;
-					p_con->cursor++;
-				}
-			}
-		break;
-	default:
-		if (p_con->cursor <
-		    p_con->original_addr + p_con->v_mem_limit - 1) {
-			//增加对屏幕字符及其对应起始位置的保存
-			input_char[input_char_ptr] = ch;
-			input_char_position[input_char_ptr] = p_con->cursor;
-			input_char_ptr++;
 
-			//原始代码
-			*p_vmem++ = ch;
-			*p_vmem++ = DEFAULT_CHAR_COLOR;
-			p_con->cursor++;			
+				//原始代码
+				*p_vmem++ = ch;
+				*p_vmem++ = DEFAULT_CHAR_COLOR;
+				p_con->cursor++;			
+			}
+		}else{
+			if (p_con->cursor <
+				p_con->original_addr + p_con->v_mem_limit - 1) {
+				//增加对屏幕字符及其对应起始位置的保存
+				find_char[find_ptr]=ch;
+				find_ptr++;
+
+				//原始代码
+				*p_vmem++ = ch;
+				*p_vmem++ = FIND_CHAR_COLOR;
+				p_con->cursor++;			
+			}
 		}
 		break;
 	}
@@ -273,4 +315,12 @@ PUBLIC void clean_screen(){
 	}
 	input_char_ptr = 0;
 	enable_int();
+}
+
+PUBLIC void do_search(){
+
+}
+
+PUBLIC void find_show(){
+	
 }

@@ -88,8 +88,12 @@ void TestA()
 	int i = 0;
 	while (1) {
 		/* disp_str("A."); */
-		clean_screen();
-		milli_delay(20*1000*2);
+		if(!find_mode){
+			clean_screen();
+			milli_delay(20*1000*2);
+		}else{
+
+		}
 	}
 }
 
