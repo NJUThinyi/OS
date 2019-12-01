@@ -23,6 +23,8 @@ PRIVATE void init_tty(TTY* p_tty);
 PRIVATE void tty_do_read(TTY* p_tty);
 PRIVATE void tty_do_write(TTY* p_tty);
 PRIVATE void put_key(TTY* p_tty, u32 key);
+//添加的tty清空方法
+PRIVATE void tty_clean(TTY* p_tty);
 
 /*======================================================================*
                            task_tty
@@ -54,6 +56,8 @@ PRIVATE void init_tty(TTY* p_tty)
 	p_tty->p_inbuf_head = p_tty->p_inbuf_tail = p_tty->in_buf;
 
 	init_screen(p_tty);
+	//添加tty清空
+	tty_clean(p_tty);
 }
 
 /*======================================================================*
@@ -156,4 +160,11 @@ PRIVATE void tty_do_write(TTY* p_tty)
 	}
 }
 
-
+void tty_clean(TTY* p_tty){
+	for(int i=0;i<TTY_IN_BYTES;i++){
+		p_tty->in_buf[i]=' ';
+	}
+	p_tty->inbuf_count=0;
+	p_tty->p_inbuf_head = p_tty->in_buf;
+	p_tty->p_inbuf_tail=p_tty->p_inbuf_tail;
+}
