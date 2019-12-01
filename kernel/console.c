@@ -360,14 +360,12 @@ PUBLIC void find_show(TTY* p_tty){
 	int end = p_con->cursor;
 	u8* p_vmem = (u8*)(V_MEM_BASE+p_con->original_addr*2);
 	int count=0;
-
+	
 	int i=start;
 	while(i<end){
 		if(i==char_start_positions[count]){
 			for(int j=0;j<find_ptr;j++){
 				if(find_char[count]=='\t'){
-					// out_char(p_con,'\t');
-					// i+=4;
 					for(int k=0;k<4;k++){
 						*p_vmem++;
 						*p_vmem++ = FIND_CHAR_COLOR;
@@ -382,7 +380,7 @@ PUBLIC void find_show(TTY* p_tty){
 			count++;
 		}else{
 			*p_vmem++;
-			*p_vmem++=DEFAULT_CHAR_COLOR;
+			*p_vmem++;
 			i++;
 		}
 	}
