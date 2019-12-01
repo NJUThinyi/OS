@@ -329,7 +329,7 @@ PUBLIC void clean_screen(){
 /*存在的问题：
 	- 换行只能查询到第一个
 	- TAB键+字母会将紧跟着的4位字母变色
-	- 连续相同字母无法全部变色
+	- 连续相同字母无法全部变色（单个解决，多个仍有问题）
 */
 PUBLIC void do_search(TTY* p_tty){
 	int match_num=0;	//匹配的字符数，等于find_ptr时代表匹配成功
@@ -360,12 +360,14 @@ PUBLIC void find_show(TTY* p_tty){
 	int end = p_con->cursor;
 	u8* p_vmem = (u8*)(V_MEM_BASE+p_con->original_addr*2);
 	int count=0;
-	int i=start;
 
+	int i=start;
 	while(i<end){
 		if(i==char_start_positions[count]){
 			for(int j=0;j<find_ptr;j++){
 				if(find_char[count]=='\t'){
+					// out_char(p_con,'\t');
+					// i+=4;
 					for(int k=0;k<4;k++){
 						*p_vmem++;
 						*p_vmem++ = FIND_CHAR_COLOR;
@@ -380,7 +382,7 @@ PUBLIC void find_show(TTY* p_tty){
 			count++;
 		}else{
 			*p_vmem++;
-			*p_vmem++;
+			*p_vmem++=DEFAULT_CHAR_COLOR;
 			i++;
 		}
 	}
