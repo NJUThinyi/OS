@@ -53,8 +53,7 @@ disasm :
 	$(DASM) $(DASMFLAGS) $(ORANGESKERNEL) > $(DASMOUTPUT)
 
 run :
-	make image
-	bochs -f bochsrc
+	make image;bochs -f bochsrc
 
 # We assume that "a.img" exists in current folder
 buildimg :
