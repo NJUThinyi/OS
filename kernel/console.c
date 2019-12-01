@@ -183,6 +183,9 @@ PUBLIC void out_char(CONSOLE* p_con, char ch)
 				p_con->cursor++;			
 			}
 		}else{
+			//debug
+			find_mode=0;
+			out_char(p_con,'*');
 			if (p_con->cursor <
 				p_con->original_addr + p_con->v_mem_limit - 1) {
 				//增加对屏幕字符及其对应起始位置的保存
@@ -322,5 +325,5 @@ PUBLIC void do_search(){
 }
 
 PUBLIC void find_show(){
-	
+
 }
