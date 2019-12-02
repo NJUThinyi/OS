@@ -362,11 +362,11 @@ PUBLIC void find_show(TTY* p_tty){
 		if(i==char_start_positions[count]){
 			for(int j=0;j<find_ptr;j++){
 				if(find_char[count]=='\t'){
-					for(int k=0;k<4;k++){
+					// for(int k=0;k<4;k++){
 						*p_vmem++ = ' ';
 						*p_vmem++ = FIND_CHAR_COLOR;
 						i++;
-					}
+					// }
 				}else{
 					*p_vmem++;
 					*p_vmem++ = FIND_CHAR_COLOR;
