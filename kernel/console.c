@@ -346,7 +346,7 @@ PUBLIC void do_search(TTY* p_tty){
 			}
 		}
 		if(match_num==find_ptr){
-			char_start_positions[matched_str_num]=i;
+			char_start_positions[matched_str_num]=input_char_position[i];
 			matched_str_num++;
 			match_num=0;
 		}
