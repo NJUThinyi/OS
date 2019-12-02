@@ -105,16 +105,13 @@ PUBLIC void out_char(CONSOLE* p_con, char ch)
 	switch(ch) {
 	case '\n':
 		if(!find_mode){
-			if (p_con->cursor < p_con->original_addr +
-				p_con->v_mem_limit - SCREEN_WIDTH) {
+			if (p_con->cursor < p_con->original_addr + p_con->v_mem_limit - SCREEN_WIDTH) {
 				//输入字符列表添加换行符
 				input_char[input_char_ptr] = '\n';
 				input_char_position[input_char_ptr] = p_con->cursor;
 				input_char_ptr++;
 
-				p_con->cursor = p_con->original_addr + SCREEN_WIDTH * 
-					((p_con->cursor - p_con->original_addr) /
-					SCREEN_WIDTH + 1);
+				p_con->cursor = p_con->original_addr + SCREEN_WIDTH * ((p_con->cursor - p_con->original_addr) / SCREEN_WIDTH + 1);
 				
 			}
 		}else{
@@ -151,20 +148,18 @@ PUBLIC void out_char(CONSOLE* p_con, char ch)
 	//TAB键的输出处理
 	case '\t':
 		if(!find_mode){
-			if (p_con->cursor <
-				p_con->original_addr + p_con->v_mem_limit - 4) {
+			if (p_con->cursor < p_con->original_addr + p_con->v_mem_limit - 4) {
 					input_char[input_char_ptr] = ch;
 					input_char_position[input_char_ptr] = p_con->cursor;
 					input_char_ptr++;
 					for(int i=0;i<4;i++){
 						*p_vmem++ = ' ';
-						*p_vmem++ = DEFAULT_CHAR_COLOR;
+						*p_vmem++ = TAB_SPACE_COLOR;
 						p_con->cursor++;
 					}
 			}
 		}else{
-			if (p_con->cursor <
-				p_con->original_addr + p_con->v_mem_limit - 4) {
+			if (p_con->cursor < p_con->original_addr + p_con->v_mem_limit - 4) {
 					find_char[find_ptr] = ch;
 					find_char_position[find_ptr]=p_con->cursor;
 					find_ptr++;
