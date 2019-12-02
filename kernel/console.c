@@ -172,7 +172,7 @@ PUBLIC void out_char(CONSOLE* p_con, char ch)
 					find_char_position[find_ptr]=p_con->cursor;
 					find_ptr++;
 					for(int i=0;i<4;i++){
-						*p_vmem++ = ' ';
+						*p_vmem++ = '*';
 						*p_vmem++ = FIND_CHAR_COLOR;
 						p_con->cursor++;
 					}
@@ -363,15 +363,16 @@ PUBLIC void find_show(TTY* p_tty){
 	int start = p_con->original_addr;
 	int end = p_con->cursor;
 	u8* p_vmem = (u8*)(V_MEM_BASE+p_con->original_addr*2);
-	int count=0;
+	int shown_str_count=0;
 	
 	int i=start;
 	while(i<end){
-		if(i==char_start_positions[count]){
+		if(i==char_start_positions[shown_str_count]){
+			//对查找模式下的字符进行遍历
 			for(int j=0;j<find_ptr;j++){
-				if(find_char[count]=='\t'){
+				if(find_char[j]=='\t'){
 					for(int k=0;k<4;k++){
-						*p_vmem++ = ' ';
+						*p_vmem++ = '#';
 						*p_vmem++ = FIND_CHAR_COLOR;
 						i++;
 					}
@@ -381,7 +382,7 @@ PUBLIC void find_show(TTY* p_tty){
 					i++;
 				}
 			}
-			count++;
+			shown_str_count++;
 		}else{
 			*p_vmem++;
 			*p_vmem++;
