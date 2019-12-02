@@ -154,7 +154,7 @@ PUBLIC void out_char(CONSOLE* p_con, char ch)
 					input_char_ptr++;
 					for(int i=0;i<4;i++){
 						*p_vmem++ = ' ';
-						*p_vmem++ = TAB_SPACE_COLOR;
+						*p_vmem++ = DEFAULT_CHAR_COLOR;
 						p_con->cursor++;
 					}
 			}
