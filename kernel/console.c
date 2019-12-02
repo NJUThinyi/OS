@@ -348,12 +348,13 @@ PUBLIC void do_search(TTY* p_tty){
 			match_num=0;
 		}
 	}
-	for(int i=0;i<find_ptr;i++){
-		char_start_positions[matched_str_num]=before_find_cursor;
-		matched_str_num++;
-	}
+	// for(int i=0;i<find_ptr;i++){
+	char_start_positions[matched_str_num]=before_find_cursor;
+	matched_str_num++;
+	// }
 }
 
+//可能有问题
 PUBLIC void find_show(TTY* p_tty){
 	CONSOLE* p_con = p_tty->p_console;
 	int start = p_con->original_addr;
