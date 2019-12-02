@@ -149,11 +149,12 @@ PUBLIC void out_char(CONSOLE* p_con, char ch)
 	case '\t':
 		if(!find_mode){
 			if (p_con->cursor < p_con->original_addr + p_con->v_mem_limit - 4) {
-					input_char[input_char_ptr] = ch;
+					// input_char[input_char_ptr] = ch;
+					input_char[input_char_ptr] = '*';
 					input_char_position[input_char_ptr] = p_con->cursor;
 					input_char_ptr++;
 					for(int i=0;i<4;i++){
-						*p_vmem++ = ' ';
+						*p_vmem++ = input_char[input_char_ptr-1];
 						*p_vmem++ = DEFAULT_CHAR_COLOR;
 						p_con->cursor++;
 					}
@@ -362,11 +363,11 @@ PUBLIC void find_show(TTY* p_tty){
 		if(i==char_start_positions[count]){
 			for(int j=0;j<find_ptr;j++){
 				if(find_char[count]=='\t'){
-					// for(int k=0;k<4;k++){
+					for(int k=0;k<4;k++){
 						*p_vmem++ = ' ';
 						*p_vmem++ = FIND_CHAR_COLOR;
 						i++;
-					// }
+					}
 				}else{
 					*p_vmem++;
 					*p_vmem++ = FIND_CHAR_COLOR;
