@@ -335,23 +335,12 @@ PUBLIC void clean_screen(){
 	- 连续相同字母无法全部变色（单个解决，多个仍有问题）
 */
 PUBLIC void do_search(TTY* p_tty){
-	//for debug
-	out_char(p_tty->p_console,'\n');
-	for(int i=0;i<input_char_ptr;i++){
-		out_char(p_tty->p_console,input_char[i]);
-	}
-	out_char(p_tty->p_console,'\n');
-	for(int j=0;j<find_char;j++){
-		out_char(p_tty->p_console,find_char[j]);
-	}
-	out_char(p_tty->p_console,'\n');
 
 	int match_num=0;	//匹配的字符数，等于find_ptr时代表匹配成功
 	for(int i=0;i<input_char_ptr;i++){
 		
 		for(int j=0;j<find_ptr;j++){
 			if(input_char[i+j]==find_char[j]){
-				out_char(p_tty->p_console,'*');
 				match_num++;
 			}else{
 				match_num=0;
