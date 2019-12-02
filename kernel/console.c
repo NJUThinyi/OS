@@ -112,11 +112,11 @@ PUBLIC void out_char(CONSOLE* p_con, char ch)
 				input_char_ptr++;
 
 				//for debug
-				int end_cursor = p_con->original_addr + SCREEN_WIDTH * ((p_con->cursor - p_con->original_addr) / SCREEN_WIDTH + 1);
-				for(int i= p_con->cursor;i<end_cursor;i++){
-					*p_vmem++='*';
-					*p_vmem++=DEFAULT_CHAR_COLOR;
-				}
+				// int end_cursor = p_con->original_addr + SCREEN_WIDTH * ((p_con->cursor - p_con->original_addr) / SCREEN_WIDTH + 1);
+				// for(int i= p_con->cursor;i<end_cursor;i++){
+				// 	*p_vmem++='*';
+				// 	*p_vmem++=DEFAULT_CHAR_COLOR;
+				// }
 
 				p_con->cursor = p_con->original_addr + SCREEN_WIDTH * ((p_con->cursor - p_con->original_addr) / SCREEN_WIDTH + 1);
 				
@@ -157,11 +157,11 @@ PUBLIC void out_char(CONSOLE* p_con, char ch)
 		if(!find_mode){
 			if (p_con->cursor < p_con->original_addr + p_con->v_mem_limit - 4) {
 					// input_char[input_char_ptr] = ch;
-					input_char[input_char_ptr] = '*';
+					input_char[input_char_ptr] = ch;
 					input_char_position[input_char_ptr] = p_con->cursor;
 					input_char_ptr++;
 					for(int i=0;i<4;i++){
-						*p_vmem++ = input_char[input_char_ptr-1];
+						*p_vmem++ = ' ';
 						*p_vmem++ = DEFAULT_CHAR_COLOR;
 						p_con->cursor++;
 					}
