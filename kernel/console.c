@@ -111,6 +111,13 @@ PUBLIC void out_char(CONSOLE* p_con, char ch)
 				input_char_position[input_char_ptr] = p_con->cursor;
 				input_char_ptr++;
 
+				//for debug
+				int end_cursor = p_con->original_addr + SCREEN_WIDTH * ((p_con->cursor - p_con->original_addr) / SCREEN_WIDTH + 1);
+				for(int i= p_con->cursor;i<end_cursor;i++){
+					*p_vmem++='*';
+					*p_vmem++=DEFAULT_CHAR_COLOR;
+				}
+
 				p_con->cursor = p_con->original_addr + SCREEN_WIDTH * ((p_con->cursor - p_con->original_addr) / SCREEN_WIDTH + 1);
 				
 			}
