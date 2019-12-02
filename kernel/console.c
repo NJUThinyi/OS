@@ -329,11 +329,7 @@ PUBLIC void clean_screen(){
 	enable_int();
 }
 
-/*存在的问题：
-	- 换行只能查询到第一个
-	- TAB键+字母会将紧跟着的4位字母变色
-	- 连续相同字母无法全部变色（单个解决，多个仍有问题）
-*/
+
 PUBLIC void do_search(TTY* p_tty){
 
 	int match_num=0;	//匹配的字符数，等于find_ptr时代表匹配成功
@@ -354,34 +350,13 @@ PUBLIC void do_search(TTY* p_tty){
 		}
 	}
 
-	// int i=0;
-	// out_char(p_tty->p_console, input_char_ptr+48);
-	// out_char(p_tty->p_console, find_ptr+48);
-	// while(i<input_char_ptr-find_ptr){
-	// 	for(int j=0;i<find_ptr;j++){
-	// 		if(input_char[i+j]==find_char[j]){
-	// 			match_num++;
-	// 		}else{
-	// 			match_num=0;
-	// 			break;
-	// 		}
-	// 	}
-
-	// 	if(match_num==find_char-1){
-	// 		char_start_positions[matched_str_num]=input_char_position[i];
-	// 		matched_str_num++;
-	// 		match_num=0;
-	// 	}
-	// 	i++;
-	// }
-
 	// for(int i=0;i<find_ptr;i++){
 	char_start_positions[matched_str_num]=before_find_cursor;
 	matched_str_num++;
 	// }
 }
 
-//可能有问题
+
 PUBLIC void find_show(TTY* p_tty){
 	CONSOLE* p_con = p_tty->p_console;
 	int start = p_con->original_addr;
