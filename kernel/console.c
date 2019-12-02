@@ -337,6 +337,7 @@ PUBLIC void clean_screen(){
 PUBLIC void do_search(TTY* p_tty){
 	int match_num=0;	//匹配的字符数，等于find_ptr时代表匹配成功
 	for(int i=0;i<input_char_ptr;i++){
+		out_char(p_tty->p_console,'*');
 		for(int j=0;j<find_ptr;j++){
 			if(input_char[i+j]==find_char[j]){
 				match_num++;
