@@ -337,7 +337,7 @@ PUBLIC void clean_screen(){
 PUBLIC void do_search(TTY* p_tty){
 
 	int match_num=0;	//匹配的字符数，等于find_ptr时代表匹配成功
-	for(int i=0;i<input_char_ptr;i++){
+	for(int i=0;i<input_char_ptr-find_ptr+1;i++){
 		
 		for(int j=0;j<find_ptr;j++){
 			if(input_char[i+j]==find_char[j]){
@@ -347,6 +347,7 @@ PUBLIC void do_search(TTY* p_tty){
 				break;
 			}
 		}
+
 		if(match_num==find_ptr){
 			char_start_positions[matched_str_num]=input_char_position[i];
 			matched_str_num++;
