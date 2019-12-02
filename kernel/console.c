@@ -337,30 +337,10 @@ PUBLIC void clean_screen(){
 PUBLIC void do_search(TTY* p_tty){
 
 	int match_num=0;	//匹配的字符数，等于find_ptr时代表匹配成功
-	// for(int i=0;i<input_char_ptr-find_ptr+1;i++){
-	// 	out_char(p_tty->p_console,'*');
-	// 	for(int j=0;j<find_ptr;j++){
-	// 		out_char(p_tty->p_console,'#');
-	// 		if(input_char[i+j]==find_char[j]){
-	// 			match_num++;
-	// 		}else{
-	// 			match_num=0;
-	// 			break;
-	// 		}
-	// 	}
-
-	// 	if(match_num==find_ptr){
-	// 		char_start_positions[matched_str_num]=input_char_position[i];
-	// 		matched_str_num++;
-	// 		match_num=0;
-	// 	}
-	// }
-
-	int i=0;
-	out_char(p_tty->p_console, input_char_ptr+48);
-	out_char(p_tty->p_console, find_ptr+48);
-	while(i<input_char_ptr-find_ptr){
-		for(int j=0;i<find_ptr;j++){
+	for(int i=0;i<input_char_ptr-find_ptr;i++){
+		out_char(p_tty->p_console,'*');
+		for(int j=0;j<find_ptr;j++){
+			out_char(p_tty->p_console,'#');
 			if(input_char[i+j]==find_char[j]){
 				match_num++;
 			}else{
@@ -369,13 +349,34 @@ PUBLIC void do_search(TTY* p_tty){
 			}
 		}
 
-		if(match_num==find_char-1){
+		if(match_num==find_ptr-1){
 			char_start_positions[matched_str_num]=input_char_position[i];
 			matched_str_num++;
 			match_num=0;
 		}
-		i++;
 	}
+
+	// int i=0;
+	// out_char(p_tty->p_console, input_char_ptr+48);
+	// out_char(p_tty->p_console, find_ptr+48);
+	// while(i<input_char_ptr-find_ptr){
+	// 	for(int j=0;i<find_ptr;j++){
+	// 		if(input_char[i+j]==find_char[j]){
+	// 			match_num++;
+	// 		}else{
+	// 			match_num=0;
+	// 			break;
+	// 		}
+	// 	}
+
+	// 	if(match_num==find_char-1){
+	// 		char_start_positions[matched_str_num]=input_char_position[i];
+	// 		matched_str_num++;
+	// 		match_num=0;
+	// 	}
+	// 	i++;
+	// }
+
 	// for(int i=0;i<find_ptr;i++){
 	char_start_positions[matched_str_num]=before_find_cursor;
 	matched_str_num++;
