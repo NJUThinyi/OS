@@ -161,7 +161,7 @@ PUBLIC void out_char(CONSOLE* p_con, char ch)
 					input_char_position[input_char_ptr] = p_con->cursor;
 					input_char_ptr++;
 					for(int i=0;i<4;i++){
-						*p_vmem++ = '*';
+						*p_vmem++ = ' ';
 						*p_vmem++ = DEFAULT_CHAR_COLOR;
 						p_con->cursor++;
 					}
@@ -172,7 +172,7 @@ PUBLIC void out_char(CONSOLE* p_con, char ch)
 					find_char_position[find_ptr]=p_con->cursor;
 					find_ptr++;
 					for(int i=0;i<4;i++){
-						*p_vmem++ = '*';
+						*p_vmem++ = ' ';
 						*p_vmem++ = FIND_CHAR_COLOR;
 						p_con->cursor++;
 					}
@@ -372,7 +372,7 @@ PUBLIC void find_show(TTY* p_tty){
 			for(int j=0;j<find_ptr;j++){
 				if(find_char[j]=='\t'){
 					for(int k=0;k<4;k++){
-						*p_vmem++ = '#';
+						*p_vmem++ = ' ';
 						*p_vmem++ = FIND_CHAR_COLOR;
 						i++;
 					}
