@@ -118,3 +118,30 @@ void TestC()
 		milli_delay(200);
 	}
 }
+
+void TestD()
+{
+	int i = 0x3000;
+	while(1){
+		disp_str("D.");
+		milli_delay(200);
+	}
+}
+
+void TestE()
+{
+	int i = 0x4000;
+	while(1){
+		disp_str("E.");
+		milli_delay(200);
+	}
+}
+
+void TestF()
+{
+	int i = 0x5000;
+	while(1){
+		disp_str("F.");
+		milli_delay(200);
+	}
+}
