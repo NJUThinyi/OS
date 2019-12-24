@@ -134,6 +134,7 @@ void TestC()
 	int i = 0x2000;
 	while(1){
 		disp_str("C.");
+		disp_str(NR_TASKS+48);
 		milli_delay(200);
 	}
 }
