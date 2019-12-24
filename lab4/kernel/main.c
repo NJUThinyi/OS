@@ -61,6 +61,10 @@ PUBLIC int kernel_main()
 		selector_ldt += 1 << 3;
 	}
 
+	proc_table[0].ticks = proc_table[0].priority = 150;
+	proc_table[1].ticks = proc_table[1].priority =  50;
+	proc_table[2].ticks = proc_table[2].priority =  30;
+
 	k_reenter = 0;
 	ticks = 0;
 
@@ -84,11 +88,10 @@ PUBLIC int kernel_main()
  *======================================================================*/
 void TestA()
 {
-	//读者进程，阅读消耗时间片：2
 	int i = 0;
 	while (1) {
 		disp_str("A.");
-		milli_delay(300);
+		milli_delay(200);
 	}
 }
 
@@ -97,11 +100,10 @@ void TestA()
  *======================================================================*/
 void TestB()
 {
-	//读者进程，阅读消耗时间片：3
 	int i = 0x1000;
 	while(1){
 		disp_str("B.");
-		milli_delay(900);
+		milli_delay(200);
 	}
 }
 
@@ -110,34 +112,9 @@ void TestB()
  *======================================================================*/
 void TestC()
 {
-	//读者进程，阅读消耗时间片：3
 	int i = 0x2000;
 	while(1){
 		disp_str("C.");
-		milli_delay(1500);
-	}
-}
-
-void TestD()
-{
-	//写者进程，写消耗时间片：3
-	while(1){
-		disp_str("D.");
-	}
-}
-
-void TestE()
-{
-	//写者进程，写消耗时间片：4
-	while(1){
-		disp_str("E.");
-	}
-}
-
-void TestF()
-{
-	//普通进程，每隔1个时间片打印当前是读还是写，如果是读，有多少人
-	while(1){
-		disp_str("F.");
+		milli_delay(200);
 	}
 }
