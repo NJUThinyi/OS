@@ -61,12 +61,28 @@ PUBLIC int kernel_main()
 		selector_ldt += 1 << 3;
 	}
 
-	proc_table[0].ticks = proc_table[0].priority = 150;
-	proc_table[1].ticks = proc_table[1].priority =  50;
-	proc_table[2].ticks = proc_table[2].priority =  30;
-	proc_table[3].ticks = proc_table[3].priority =  30;
-	proc_table[4].ticks = proc_table[4].priority =  30;
-	proc_table[5].ticks = proc_table[5].priority =  30;
+	// proc_table[0].ticks = proc_table[0].priority = 150;
+	// proc_table[1].ticks = proc_table[1].priority =  50;
+	// proc_table[2].ticks = proc_table[2].priority =  30;
+	// proc_table[3].ticks = proc_table[3].priority =  25;
+	// proc_table[4].ticks = proc_table[4].priority =  20;
+	// proc_table[5].ticks = proc_table[5].priority =  0;
+
+	proc_table[0].ticks = 20;
+	proc_table[1].ticks = 30;
+	proc_table[2].ticks = 30;
+	proc_table[3].ticks = 30;
+	proc_table[4].ticks = 40;
+	proc_table[5].ticks = 10;
+
+	for(int i=0;i<6;i++){
+		if(i!=5){
+			proc_table[i].priority=1;
+		}else{
+			proc_table[i].priority=10;
+		}
+	}
+
 
 	k_reenter = 0;
 	ticks = 0;
