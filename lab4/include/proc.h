@@ -60,9 +60,9 @@ typedef struct s_task {
 #define STACK_SIZE_TESTF	0x8000
 
 #define STACK_SIZE_TOTAL	(STACK_SIZE_TESTA + \
-				STACK_SIZE_TESTB + \
-				STACK_SIZE_TESTC + \
-				STACK_SIZE_TESTD + \
-				STACK_SIZE_TESTE + \
-				STACK_SIZE_TESTF)
+							 STACK_SIZE_TESTB + \
+							 STACK_SIZE_TESTC + \
+							 STACK_SIZE_TESTD + \
+							 STACK_SIZE_TESTE + \
+							 STACK_SIZE_TESTF)
 
