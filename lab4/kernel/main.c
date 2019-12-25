@@ -104,7 +104,7 @@ PUBLIC int kernel_main()
 	writer_count=0;
 
 	rmutex.value=1;
-	rmutex2.value=1;	//允许读一本书的读者数
+	rmutex2.value=2;	//允许读一本书的读者数
 	wmutex.value=1;
 	S.value=1;
 	rw_prio=0;
@@ -255,7 +255,8 @@ void TestF()
 			my_disp_str(msg);
 			char* count[4]={"0", "1", "2", "3"};
 			// my_disp_str(count[reader_count]);
-			switch (rmutex2.value)
+			int reader_num = rmutex2.value + 1;
+			switch (reader_num)
 			{
 			case 0:
 				my_disp_str("0");
