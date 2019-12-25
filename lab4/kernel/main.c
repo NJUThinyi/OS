@@ -290,11 +290,13 @@ void TestF()
 	int i = 0x5000;
 	while(1){
 		if(r_w_now==0){
-			char* msg="Now: Reading... Reader Process Number: ";
-			my_disp_str(msg);
 			char* count[4]={"0", "1", "2", "3"};
 			// my_disp_str(count[reader_count]);
 			int reader_num = rmutex2.value + 1;
+			if(reader_num<=3){
+				char* msg="Now: Reading... Reader Process Number: ";
+				my_disp_str(msg);
+			}
 			switch (reader_num)
 			{
 			case 0:
