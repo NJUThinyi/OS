@@ -180,7 +180,6 @@ PUBLIC void writer(int milli_sec, int i){
 			char *msg="Write Start! Process: ";
 			disp_color_str(msg, p_proc_ready->print_color);
 			disp_color_str(names[i-3],p_proc_ready->print_color);
-			disp_color_str(i+48, p_proc_ready->print_color);
 			disp_color_str("\n", p_proc_ready->print_color);
 			milli_delay(milli_sec);
 			msg="Write End! Process: ";
