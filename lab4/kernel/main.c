@@ -124,6 +124,12 @@ PUBLIC int kernel_main()
 
 	restart();
 
+	disp_pos=0;
+	for(int i=0;i<80*25;i++){
+		disp_str(" ");
+	}
+	disp_pos=0;
+
 	while(1){}
 }
 
@@ -243,7 +249,6 @@ void TestF()
 {
 	int i = 0x5000;
 	while(1){
-		disp_str("wyx");
 		if(r_w_now==0){
 			char* msg="Now: Reading... Reader PRocess Number: ";
 			my_disp_str(msg);
