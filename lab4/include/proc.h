@@ -58,7 +58,7 @@ struct semaphore{
 	int value;
 	PROCESS* list[20];
 	int list_len;
-}
+};
 
 
 /* Number of tasks */
