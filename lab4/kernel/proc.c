@@ -86,6 +86,7 @@ PUBLIC void sys_process_sleep(int milli_sec, struct s_proc* p){
 }
 
 PUBLIC void sys_my_disp_str(char* str){
+	disp_str("disp");
 	disp_str(str);
 }
 
