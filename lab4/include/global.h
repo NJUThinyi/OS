@@ -31,9 +31,9 @@ extern	irq_handler	irq_table[];
 
 EXTERN int reader_count;
 EXTERN int writer_count;
-EXTERN SEMAPHORE* rmutex; 
-EXTERN SEMAPHORE* rmutex2; 
-EXTERN SEMAPHORE* wmutex;
-EXTERN SEMAPHORE* S;
+EXTERN SEMAPHORE rmutex; 
+EXTERN SEMAPHORE rmutex2; 
+EXTERN SEMAPHORE wmutex;
+EXTERN SEMAPHORE S;
 EXTERN int rw_prio; //0：读者优先（默认），1：写者优先
 EXTERN int r_w_now;
