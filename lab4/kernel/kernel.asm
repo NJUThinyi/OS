@@ -345,8 +345,6 @@ sys_call:
 
         push	esi
 
-	push	edx
-	push	ecx
 	push	ebx
         call    [sys_call_table + eax * 4]
 	add	esp, 4
