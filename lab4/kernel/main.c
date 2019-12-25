@@ -68,7 +68,6 @@ PUBLIC int kernel_main()
 		p_task++;
 		selector_ldt += 1 << 3;
 	}
-	disp_str("wyx");
 
 	// proc_table[0].ticks = proc_table[0].priority = 150;
 	// proc_table[1].ticks = proc_table[1].priority =  50;
@@ -196,6 +195,7 @@ void TestA()
 	while (1) {
 		// disp_str("A.");
 		// milli_delay(200);
+		disp_str("wyx");
 		reader(200, 0);
 	}
 }
