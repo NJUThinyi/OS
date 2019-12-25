@@ -345,7 +345,6 @@ sys_call:
 
         push	esi
 
-	push	dword [p_proc_ready]
 	push	edx
 	push	ecx
 	push	ebx
