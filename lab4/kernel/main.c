@@ -122,13 +122,13 @@ PUBLIC int kernel_main()
         put_irq_handler(CLOCK_IRQ, clock_handler); /* 设定时钟中断处理程序 */
         enable_irq(CLOCK_IRQ);                     /* 让8259A可以接收时钟中断 */
 
-	restart();
-
 	disp_pos=0;
 	for(int i=0;i<80*25;i++){
 		disp_str(" ");
 	}
 	disp_pos=0;
+	
+	restart();
 
 	while(1){}
 }
@@ -199,7 +199,6 @@ void TestA()
 {
 	int i = 0;
 	while (1) {
-		disp_str("A.");
 		// milli_delay(200);
 		reader(200, 0);
 	}
@@ -212,7 +211,6 @@ void TestB()
 {
 	int i = 0x1000;
 	while(1){
-		disp_str("B.");
 		// milli_delay(200);
 		reader(300, 1);
 	}
