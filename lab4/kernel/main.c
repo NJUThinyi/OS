@@ -300,21 +300,20 @@ void TestF()
 			switch (reader_num)
 			{
 			case 0:
-				my_disp_str("0");
+				my_disp_str("0\n");
 				break;
 			case 1:
-				my_disp_str("1");
+				my_disp_str("1\n");
 				break;
 			case 2:
-				my_disp_str("2");
+				my_disp_str("2\n");
 				break;
 			case 3:
-				my_disp_str("3");
+				my_disp_str("3\n");
 				break;
 			default:
 				break;
 			}
-			my_disp_str("\n");
 		}else if(r_w_now==1){
 			char* msg="Now Writing...\n";
 			my_disp_str(msg);
