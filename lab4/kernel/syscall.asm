@@ -36,25 +36,25 @@ get_ticks:
 
 process_sleep:
 	mov eax, _NR_process_sleep
-	mov edx, [esp+4]
+	mov ebx, [esp+4]
 	int INT_VECTOR_SYS_CALL
 	ret
 
 my_disp_str:
 	mov eax, _NR_my_disp_str
-	mov edx, [esp+4]
+	mov ebx, [esp+4]
 	int INT_VECTOR_SYS_CALL
 	ret
 
 P:
 	mov eax, _NR_p
-	mov edx, [esp+4]
+	mov ebx, [esp+4]
 	int INT_VECTOR_SYS_CALL
 	ret
 
 V:
 	mov eax, _NR_v
-	mov edx, [esp+4]
+	mov ebx, [esp+4]
 	int INT_VECTOR_SYS_CALL
 	ret
 
