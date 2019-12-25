@@ -148,7 +148,7 @@ PUBLIC void reader(int milli_sec, int i){
 
 			P(&rmutex2);
 			r_w_now=0;
-			char* msg="Reading...! Process: ";
+			msg="Reading...! Process: ";
 			disp_color_str(msg, p_proc_ready->print_color);
 			disp_color_str(names[i],p_proc_ready->print_color);
 			disp_color_str("\n", p_proc_ready->print_color);
@@ -181,7 +181,7 @@ PUBLIC void reader(int milli_sec, int i){
 
 			P(&rmutex2);
 			r_w_now=0;
-			char* msg="Reading...! Process: ";
+			msg="Reading...! Process: ";
 			disp_color_str(msg, p_proc_ready->print_color);
 			disp_color_str(names[i],p_proc_ready->print_color);
 			disp_color_str("\n", p_proc_ready->print_color);
@@ -213,7 +213,7 @@ PUBLIC void writer(int milli_sec, int i){
 			// P(&S);
 			P(&wmutex);
 			r_w_now=1;
-			char *msg="Writing...! Process: ";
+			msg="Writing...! Process: ";
 			disp_color_str(msg, p_proc_ready->print_color);
 			disp_color_str(names[i-3],p_proc_ready->print_color);
 			disp_color_str("\n", p_proc_ready->print_color);
@@ -232,7 +232,7 @@ PUBLIC void writer(int milli_sec, int i){
 			disp_color_str("\n", p_proc_ready->print_color);
 			P(&wmutex);
 			r_w_now=1;
-			char *msg="Writing...! Process: ";
+			msg="Writing...! Process: ";
 			disp_color_str(msg, p_proc_ready->print_color);
 			disp_color_str(names[i-3],p_proc_ready->print_color);
 			disp_color_str("\n", p_proc_ready->print_color);
