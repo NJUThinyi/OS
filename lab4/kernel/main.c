@@ -107,6 +107,9 @@ PUBLIC int kernel_main()
 	rmutex2.value=2;	//允许读一本书的读者数
 	wmutex.value=1;
 	S.value=1;
+	x.value=1;
+	y.value=1;
+	z.value=1;
 	rw_prio=0;
 
 	k_reenter = 0;
@@ -166,7 +169,36 @@ PUBLIC void reader(int milli_sec, int i){
 			}
 			V(&rmutex);
 		}else if(rw_prio==1){
+			P(&z);
+			P(&rmutex);
+			P(&x);
+			reader_count++;
+			if(reader_count==1){
+				P(&wmutex);
+			}
+			V(&x);
+			V(&rmutex);
+			V(&z);
 
+			P(&rmutex2);
+			r_w_now=0;
+			char* msg="Read Start! Process: ";
+			disp_color_str(msg, p_proc_ready->print_color);
+			disp_color_str(names[i],p_proc_ready->print_color);
+			disp_color_str("\n", p_proc_ready->print_color);
+			milli_delay(milli_sec);
+			msg="Read End! Process: ";
+			disp_color_str(msg, p_proc_ready->print_color);
+			disp_color_str(names[i],p_proc_ready->print_color);
+			disp_color_str("\n", p_proc_ready->print_color);
+			V(&rmutex2);
+
+			P(&x);
+			reader_count--;
+			if(reader_count==0){
+				V(&wmutex);
+			}
+			V(&x);
 		}
 	}
 }
@@ -190,7 +222,32 @@ PUBLIC void writer(int milli_sec, int i){
 			V(&wmutex);
 			V(&S);
 		}else if(rw_prio==1){
-			
+			P(&y);
+			writer_count++;
+			if(writer_count==1){
+				P(&rmutex);
+			}
+			V(&y);
+
+			P(&wmutex);
+			r_w_now=1;
+			char *msg="Write Start! Process: ";
+			disp_color_str(msg, p_proc_ready->print_color);
+			disp_color_str(names[i-3],p_proc_ready->print_color);
+			disp_color_str("\n", p_proc_ready->print_color);
+			milli_delay(milli_sec);
+			msg="Write End! Process: ";
+			disp_color_str(msg, p_proc_ready->print_color);
+			disp_color_str(names[i-3],p_proc_ready->print_color);
+			disp_color_str("\n", p_proc_ready->print_color);
+			V(&wmutex);
+
+			P(&y);
+			writer_count--;
+			if(writer_count==0){
+				V(&rmutex);
+			}
+			V(&y);
 		}
 	}
 }
@@ -279,5 +336,12 @@ void TestF()
 			my_disp_str(msg);
 		}
 		process_sleep(100);
+	}
+	if(disp_pos>80*24){
+		disp_pos=0;
+		for(int i=0;i<80*25;i++){
+			my_disp_str(" ");
+		}
+		disp_pos=0;
 	}
 }

@@ -35,5 +35,8 @@ EXTERN struct semaphore rmutex;
 EXTERN struct semaphore rmutex2; 
 EXTERN struct semaphore wmutex;
 EXTERN struct semaphore S;
+EXTERN struct semaphore x;
+EXTERN struct semaphore y;
+EXTERN struct semaphore z;
 EXTERN int rw_prio; //0：读者优先（默认），1：写者优先
 EXTERN int r_w_now;
