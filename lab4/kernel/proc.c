@@ -45,3 +45,32 @@ PUBLIC int sys_get_ticks()
 	return ticks;
 }
 
+PUBLIC void sys_process_sleep(int milli_sec, SEMAPHORE* sem){
+	
+}
+
+PUBLIC void sys_my_disp_str(char* str){
+	disp_str(str);
+}
+
+PUBLIC void sys_P(SEMAPHORE *sem){
+	sem->value--;
+	if(sem->value<0){
+		sem->list[sem->list_len] = p_proc_ready;
+		p_proc_ready->flag=1;
+		sem->list_len++;
+	}
+}
+
+PUBLIC void sys_V(SEMAPHORE *sem){
+	sem->value++;
+	if(sem->value<=0){
+		p_proc_ready = sem->list[0];
+		p_proc_ready->flag=0;
+		for(int i=0;i<sem->list_len;i++){
+			sem->list[i] = sem->list[i+1];
+		}
+		sem->list_len--;
+	}
+}
+

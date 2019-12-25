@@ -28,5 +28,16 @@ PUBLIC	TASK	task_table[NR_TASKS] = {{TestA, STACK_SIZE_TESTA, "TestA"},
 
 PUBLIC	irq_handler		irq_table[NR_IRQ];
 
-PUBLIC	system_call		sys_call_table[NR_SYS_CALL] = {sys_get_ticks};
+PUBLIC	system_call		sys_call_table[NR_SYS_CALL] = {sys_get_ticks, sys_process_sleep, sys_my_disp_str, sys_P, sys_V};
+
+//增加的关于读者写者的全局变量
+PUBLIC int reader_count;
+PUBLIC int writer_count;
+PUBLIC SEMAPHORE* rmutex; 
+PUBLIC SEMAPHORE* rmutex2; 
+PUBLIC SEMAPHORE* wmutex;
+PUBLIC SEMAPHORE* S;
+PUBLIC int BOOKS;
+PUBLIC int rw_prio; //0：读者优先（默认），1：写者优先
+PUBLIC int r_w_now; /* 0: 当前为读进程， 1：当前为写进程*/
 

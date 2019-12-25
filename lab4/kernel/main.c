@@ -68,6 +68,7 @@ PUBLIC int kernel_main()
 	// proc_table[4].ticks = proc_table[4].priority =  20;
 	// proc_table[5].ticks = proc_table[5].priority =  0;
 
+	//分配时间片
 	proc_table[0].ticks = 20;
 	proc_table[1].ticks = 30;
 	proc_table[2].ticks = 30;
@@ -83,6 +84,22 @@ PUBLIC int kernel_main()
 		}
 	}
 
+	proc_table[0].print_color= 0x01;	//蓝色
+	proc_table[1].print_color= 0x02;	//绿色
+	proc_table[2].print_color= 0x04;	//红色
+	proc_table[3].print_color= 0x06;	//棕色
+	proc_table[4].print_color= 0x0D;	//亮紫色
+	proc_table[5].print_color= 0x07;	//黑色
+
+	//新增的全局变量初始化
+	reader_count=0;
+	writer_count=0;
+
+	rmutex->value=1;
+	rmutex2->value=1;	//允许读一本书的读者数
+	wmutex->value=1;
+	S->value=1;
+	rw_prio=0;
 
 	k_reenter = 0;
 	ticks = 0;
@@ -102,6 +119,60 @@ PUBLIC int kernel_main()
 	while(1){}
 }
 
+PUBLIC void reader(int milli_sec, int i){
+	char** names[3]={"Reader_A", "Reader_B", "Reader_C"};
+	while(1){
+		if(rw_prio==0){	//读者优先
+			P(&rmutex);
+			if(reader_count==0){
+				P(&wmutex);
+			}
+			reader_count++;
+			V(&rmutex);
+
+			P(&rmutex2);
+			r_w_now=0;
+			char* msg="Read Start! Process: ";
+			strcat(msg, names[i]);
+			disp_color_str(msg, p_proc_ready->print_color);
+			milli_delay(milli_sec);
+			msg="Read End! Process: ";
+			strcat(msg, names[i]);
+			disp_color_str(msg, p_proc_ready->print_color);
+			V(&rmutex2);
+
+			P(&rmutex);
+			reader_count--;
+			if(reader_count==0){
+				V(wmutex);
+			}
+			V(&rmutex);
+		}else if(rw_prio==1){
+
+		}
+	}
+}
+
+PUBLIC void writer(int milli_sec, int i){
+	char** names=["Writer_D", "Writer_E"];
+	while(1){
+		if(rw_prio==0){	//读者优先
+			p(&wmutex);
+			r_w_now=1;
+			char *msg="Write Start! Process: ";
+			strcat(msg, names[i-3]);
+			strcat(msg, i+48);
+			disp_color_str(msg, p_proc_ready->print_color);
+			milli_delay(milli_sec);
+			msg="Write End! Process: ";
+			strcat(msg, names[i-3]);
+			disp_color_str(msg, p_proc_ready->print_color);
+		}else if(rw_prio==1){
+			
+		}
+	}
+}
+
 /*======================================================================*
                                TestA
  *======================================================================*/
@@ -109,8 +180,9 @@ void TestA()
 {
 	int i = 0;
 	while (1) {
-		disp_str("A.");
-		milli_delay(200);
+		// disp_str("A.");
+		// milli_delay(200);
+		reader(200, 0);
 	}
 }
 
@@ -121,8 +193,9 @@ void TestB()
 {
 	int i = 0x1000;
 	while(1){
-		disp_str("B.");
-		milli_delay(200);
+		// disp_str("B.");
+		// milli_delay(200);
+		reader(300, 1);
 	}
 }
 
@@ -133,9 +206,7 @@ void TestC()
 {
 	int i = 0x2000;
 	while(1){
-		disp_str("C.");
-		disp_str(NR_TASKS+48);
-		milli_delay(200);
+		reader(300, 2);
 	}
 }
 
@@ -143,8 +214,7 @@ void TestD()
 {
 	int i = 0x3000;
 	while(1){
-		disp_str("D.");
-		milli_delay(200);
+		writer(300, 3);
 	}
 }
 
@@ -152,8 +222,7 @@ void TestE()
 {
 	int i = 0x4000;
 	while(1){
-		disp_str("E.");
-		milli_delay(200);
+		writer(400, 4);
 	}
 }
 
@@ -161,7 +230,13 @@ void TestF()
 {
 	int i = 0x5000;
 	while(1){
-		disp_str("F.");
-		milli_delay(200);
+		if(r_w_now==0){
+			char* msg="Now: Reading... Reader PRocess Number: ";
+			strcat(msg, reader_count + 48);
+			my_disp_str(msg);
+		}else if(r_w_now==1){
+			char* msg="Now Writing...";
+			my_disp_str(msg);
+		}
 	}
 }

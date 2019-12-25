@@ -39,6 +39,12 @@ typedef struct s_proc {
 
 	u32 pid;                   /* process id passed in from MM */
 	char p_name[16];           /* name of the process */
+
+	int flag;	/* flag=0， 进程可以执行 */
+
+	int sleep_moment;
+	int sleep_ticks;
+	int print_color;
 }PROCESS;
 
 typedef struct s_task {
@@ -46,6 +52,13 @@ typedef struct s_task {
 	int	stacksize;
 	char	name[32];
 }TASK;
+
+//新增信号量的定义
+typedef struct semaphore{
+	int value;
+	PROCESS* list[20];
+	int list_len;
+}SEMAPHORE;
 
 
 /* Number of tasks */
