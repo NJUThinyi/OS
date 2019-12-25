@@ -77,12 +77,12 @@ PUBLIC int kernel_main()
 	// proc_table[5].ticks = proc_table[5].priority =  0;
 
 	//分配时间片
-	proc_table[0].ticks = 20;
+	proc_table[0].ticks = 30;
 	proc_table[1].ticks = 30;
 	proc_table[2].ticks = 30;
 	proc_table[3].ticks = 30;
-	proc_table[4].ticks = 40;
-	proc_table[5].ticks = 10;
+	proc_table[4].ticks = 30;
+	proc_table[5].ticks = 100;
 
 	for(int i=0;i<6;i++){
 		if(i!=5){
@@ -104,13 +104,16 @@ PUBLIC int kernel_main()
 	writer_count=0;
 
 	rmutex.value=1;
+	// rmutex2.value=1;
+	// rmutex2.value=2;	
 	rmutex2.value=3;	//允许读一本书的读者数
 	wmutex.value=1;
 	S.value=1;
 	x.value=1;
 	y.value=1;
 	z.value=1;
-	rw_prio=0;
+	// rw_prio=0;
+	rw_prio=1;
 
 	k_reenter = 0;
 	ticks = 0;
