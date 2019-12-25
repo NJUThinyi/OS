@@ -5,7 +5,7 @@
                                                     Forrest Yu, 2005
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-#include <string.h>
+#include <string.h>;
 #include "type.h"
 #include "const.h"
 #include "protect.h"
