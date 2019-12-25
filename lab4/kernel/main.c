@@ -76,19 +76,12 @@ PUBLIC int kernel_main()
 	// proc_table[4].ticks = proc_table[4].priority =  20;
 	// proc_table[5].ticks = proc_table[5].priority =  0;
 
-	//分配时间片
-	proc_table[0].ticks = 30;
-	proc_table[1].ticks = 30;
-	proc_table[2].ticks = 30;
-	proc_table[3].ticks = 30;
-	proc_table[4].ticks = 30;
-	proc_table[5].ticks = 100;
 
 	for(int i=0;i<6;i++){
 		if(i!=5){
-			proc_table[i].priority=1;
+			proc_table[i].ticks=proc_table[i].priority=1;
 		}else{
-			proc_table[i].priority=10;
+			proc_table[i].ticks=proc_table[i].priority=10;
 		}
 	}
 
@@ -109,9 +102,6 @@ PUBLIC int kernel_main()
 	rmutex2.value=3;	//允许读一本书的读者数
 	wmutex.value=1;
 	S.value=1;
-	x.value=1;
-	y.value=1;
-	z.value=1;
 	// rw_prio=0;
 	rw_prio=1;
 
@@ -173,16 +163,14 @@ PUBLIC void reader(int milli_sec, int i){
 			}
 			V(&rmutex);
 		}else if(rw_prio==1){
-			P(&z);
+			P(&S);
 			P(&rmutex);
-			P(&x);
-			reader_count++;
-			if(reader_count==1){
+			if(reader_count==0){
 				P(&wmutex);
 			}
-			V(&x);
+			reader_count++;
 			V(&rmutex);
-			V(&z);
+			V(&S);
 
 			P(&rmutex2);
 			r_w_now=0;
@@ -197,12 +185,12 @@ PUBLIC void reader(int milli_sec, int i){
 			disp_color_str("\n", p_proc_ready->print_color);
 			V(&rmutex2);
 
-			P(&x);
+			P(&rmutex);
 			reader_count--;
 			if(reader_count==0){
 				V(&wmutex);
 			}
-			V(&x);
+			V(&rmutex);
 		}
 	}
 }
@@ -226,12 +214,7 @@ PUBLIC void writer(int milli_sec, int i){
 			V(&wmutex);
 			// V(&S);
 		}else if(rw_prio==1){
-			P(&y);
-			writer_count++;
-			if(writer_count==1){
-				P(&rmutex);
-			}
-			V(&y);
+			P(&S);
 
 			P(&wmutex);
 			r_w_now=1;
@@ -246,12 +229,7 @@ PUBLIC void writer(int milli_sec, int i){
 			disp_color_str("\n", p_proc_ready->print_color);
 			V(&wmutex);
 
-			P(&y);
-			writer_count--;
-			if(writer_count==0){
-				V(&rmutex);
-			}
-			V(&y);
+			V(&S);
 		}
 	}
 }
@@ -341,11 +319,11 @@ void TestF()
 		}
 		process_sleep(1000);
 		if(disp_pos>160*25){
-		disp_pos=0;
-		for(int i=0;i<80*25;i++){
-			my_disp_str(" ");
+			disp_pos=0;
+			for(int i=0;i<80*25;i++){
+				my_disp_str(" ");
+			}
+			disp_pos=0;
 		}
-		disp_pos=0;
-	}
 	}
 }
