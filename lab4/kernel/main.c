@@ -135,6 +135,10 @@ PUBLIC void reader(int milli_sec, int i){
 		if(rw_prio==0){	//读者优先
 			// P(&S);
 			P(&rmutex);
+			char* msg="Read Start! Process: ";
+			disp_color_str(msg, p_proc_ready->print_color);
+			disp_color_str(names[i],p_proc_ready->print_color);
+			disp_color_str("\n", p_proc_ready->print_color);
 			if(reader_count==0){
 				P(&wmutex);
 			}
@@ -144,7 +148,7 @@ PUBLIC void reader(int milli_sec, int i){
 
 			P(&rmutex2);
 			r_w_now=0;
-			char* msg="Read Start! Process: ";
+			char* msg="Reading...! Process: ";
 			disp_color_str(msg, p_proc_ready->print_color);
 			disp_color_str(names[i],p_proc_ready->print_color);
 			disp_color_str("\n", p_proc_ready->print_color);
@@ -164,6 +168,10 @@ PUBLIC void reader(int milli_sec, int i){
 		}else if(rw_prio==1){
 			P(&S);
 			P(&rmutex);
+			char* msg="Read Start! Process: ";
+			disp_color_str(msg, p_proc_ready->print_color);
+			disp_color_str(names[i],p_proc_ready->print_color);
+			disp_color_str("\n", p_proc_ready->print_color);
 			if(reader_count==0){
 				P(&wmutex);
 			}
@@ -173,7 +181,7 @@ PUBLIC void reader(int milli_sec, int i){
 
 			P(&rmutex2);
 			r_w_now=0;
-			char* msg="Read Start! Process: ";
+			char* msg="Reading...! Process: ";
 			disp_color_str(msg, p_proc_ready->print_color);
 			disp_color_str(names[i],p_proc_ready->print_color);
 			disp_color_str("\n", p_proc_ready->print_color);
@@ -198,10 +206,14 @@ PUBLIC void writer(int milli_sec, int i){
 	const char* names[2]={"Writer_D", "Writer_E"};
 	while(1){
 		if(rw_prio==0){	//读者优先
+			char *msg="Write Start! Process: ";
+			disp_color_str(msg, p_proc_ready->print_color);
+			disp_color_str(names[i-3],p_proc_ready->print_color);
+			disp_color_str("\n", p_proc_ready->print_color);
 			// P(&S);
 			P(&wmutex);
 			r_w_now=1;
-			char *msg="Write Start! Process: ";
+			char *msg="Writing...! Process: ";
 			disp_color_str(msg, p_proc_ready->print_color);
 			disp_color_str(names[i-3],p_proc_ready->print_color);
 			disp_color_str("\n", p_proc_ready->print_color);
@@ -214,10 +226,13 @@ PUBLIC void writer(int milli_sec, int i){
 			// V(&S);
 		}else if(rw_prio==1){
 			P(&S);
-
+			char *msg="Write Start! Process: ";
+			disp_color_str(msg, p_proc_ready->print_color);
+			disp_color_str(names[i-3],p_proc_ready->print_color);
+			disp_color_str("\n", p_proc_ready->print_color);
 			P(&wmutex);
 			r_w_now=1;
-			char *msg="Write Start! Process: ";
+			char *msg="Writing...! Process: ";
 			disp_color_str(msg, p_proc_ready->print_color);
 			disp_color_str(names[i-3],p_proc_ready->print_color);
 			disp_color_str("\n", p_proc_ready->print_color);
