@@ -145,6 +145,7 @@ PUBLIC void reader(int milli_sec, int i){
 			reader_count++;
 			V(&rmutex);
 			V(&S);
+
 			P(&rmutex2);
 			r_w_now=0;
 			char* msg="Read Start! Process: ";
@@ -254,7 +255,7 @@ void TestF()
 			my_disp_str(msg);
 			char* count[4]={"0", "1", "2", "3"};
 			// my_disp_str(count[reader_count]);
-			switch (reader_count)
+			switch (rmutex2.value)
 			{
 			case 0:
 				my_disp_str("0");
