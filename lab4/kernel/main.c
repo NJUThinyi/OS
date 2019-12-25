@@ -159,7 +159,7 @@ PUBLIC void writer(int milli_sec, int i){
 	const char* names[2]={"Writer_D", "Writer_E"};
 	while(1){
 		if(rw_prio==0){	//读者优先
-			p(&wmutex);
+			P(&wmutex);
 			r_w_now=1;
 			char *msg="Write Start! Process: ";
 			disp_color_str(msg, p_proc_ready->print_color);
@@ -171,6 +171,7 @@ PUBLIC void writer(int milli_sec, int i){
 			disp_color_str(msg, p_proc_ready->print_color);
 			disp_color_str(names[i-3],p_proc_ready->print_color);
 			disp_color_str("\n", p_proc_ready->print_color);
+			V(&wmutex);
 		}else if(rw_prio==1){
 			
 		}
