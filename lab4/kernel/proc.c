@@ -23,15 +23,19 @@ PUBLIC void schedule()
 
 	while (!greatest_ticks) {
 		for (p = proc_table; p < proc_table+NR_TASKS; p++) {
-			if (p->ticks > greatest_ticks) {
-				greatest_ticks = p->ticks;
-				p_proc_ready = p;
+			if(p->flag==0){
+				if (p->ticks > greatest_ticks) {
+					greatest_ticks = p->ticks;
+					p_proc_ready = p;
+				}
 			}
 		}
 
 		if (!greatest_ticks) {
 			for (p = proc_table; p < proc_table+NR_TASKS; p++) {
-				p->ticks = p->priority;
+				if(p->flag==0){
+					p->ticks = p->priority;
+				}
 			}
 		}
 	}
@@ -59,6 +63,7 @@ PUBLIC void sys_P(struct semaphore *sem){
 		sem->list[sem->list_len] = p_proc_ready;
 		p_proc_ready->flag=1;
 		sem->list_len++;
+		schedule();
 	}
 }
 

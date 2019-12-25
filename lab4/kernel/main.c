@@ -5,7 +5,6 @@
                                                     Forrest Yu, 2005
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-#include <string.h>;
 #include "type.h"
 #include "const.h"
 #include "protect.h"
@@ -134,12 +133,14 @@ PUBLIC void reader(int milli_sec, int i){
 			P(&rmutex2);
 			r_w_now=0;
 			char* msg="Read Start! Process: ";
-			strcat(msg, names[i]);
 			disp_color_str(msg, p_proc_ready->print_color);
+			disp_color_str(names[i],p_proc_ready->print_color);
+			disp_color_str("\n", p_proc_ready->print_color);
 			milli_delay(milli_sec);
 			msg="Read End! Process: ";
-			strcat(msg, names[i]);
 			disp_color_str(msg, p_proc_ready->print_color);
+			disp_color_str(names[i],p_proc_ready->print_color);
+			disp_color_str("\n", p_proc_ready->print_color);
 			V(&rmutex2);
 
 			P(&rmutex);
@@ -161,13 +162,15 @@ PUBLIC void writer(int milli_sec, int i){
 			p(&wmutex);
 			r_w_now=1;
 			char *msg="Write Start! Process: ";
-			strcat(msg, names[i-3]);
-			strcat(msg, i+48);
 			disp_color_str(msg, p_proc_ready->print_color);
+			disp_color_str(names[i-3],p_proc_ready->print_color);
+			disp_color_str(i+48, p_proc_ready->print_color);
+			disp_color_str("\n", p_proc_ready->print_color);
 			milli_delay(milli_sec);
 			msg="Write End! Process: ";
-			strcat(msg, names[i-3]);
 			disp_color_str(msg, p_proc_ready->print_color);
+			disp_color_str(names[i-3],p_proc_ready->print_color);
+			disp_color_str("\n", p_proc_ready->print_color);
 		}else if(rw_prio==1){
 			
 		}
@@ -231,13 +234,16 @@ void TestF()
 {
 	int i = 0x5000;
 	while(1){
+
 		if(r_w_now==0){
 			char* msg="Now: Reading... Reader PRocess Number: ";
-			strcat(msg, reader_count + 48);
-			disp_str(msg);
+			my_disp_str(msg);
+			my_disp_str(reader_count+48);
+			my_disp_str("\n");
 		}else if(r_w_now==1){
-			char* msg="Now Writing...";
-			disp_str(msg);
+			char* msg="Now Writing...\n";
+			my_disp_str(msg);
 		}
+		milli_delay(100);
 	}
 }
