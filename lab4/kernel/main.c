@@ -234,10 +234,10 @@ void TestF()
 		if(r_w_now==0){
 			char* msg="Now: Reading... Reader PRocess Number: ";
 			strcat(msg, reader_count + 48);
-			my_disp_str(msg);
+			disp_str(msg);
 		}else if(r_w_now==1){
 			char* msg="Now Writing...";
-			my_disp_str(msg);
+			disp_str(msg);
 		}
 	}
 }
