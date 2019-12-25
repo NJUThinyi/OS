@@ -293,7 +293,12 @@ void TestF()
 			my_disp_str(msg);
 			char* count[4]={"0", "1", "2", "3"};
 			// my_disp_str(count[reader_count]);
-			int reader_num = ori_rm2_value- rmutex2.value;
+			int reader_num;
+			if(rmutex2.value<0){
+				reader_num=ori_rm2_value;
+			}else{
+				reader_num=ori_rm2_value-rmutex2.value;
+			}
 			switch (reader_num)
 			{
 			case 0:
