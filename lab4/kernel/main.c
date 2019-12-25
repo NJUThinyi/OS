@@ -55,7 +55,6 @@ PUBLIC int kernel_main()
 		p_proc->regs.esp = (u32)p_task_stack;
 		p_proc->regs.eflags = 0x1202; /* IF=1, IOPL=1 */
 
-		disp_str("wyx");
 
 		//新增变量的初始化
 		p_proc->flag = 0;
@@ -69,6 +68,7 @@ PUBLIC int kernel_main()
 		p_task++;
 		selector_ldt += 1 << 3;
 	}
+	disp_str("wyx");
 
 	// proc_table[0].ticks = proc_table[0].priority = 150;
 	// proc_table[1].ticks = proc_table[1].priority =  50;
