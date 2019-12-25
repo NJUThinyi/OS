@@ -193,9 +193,8 @@ void TestA()
 {
 	int i = 0;
 	while (1) {
-		// disp_str("A.");
+		disp_str("A.");
 		// milli_delay(200);
-		disp_str("wyx");
 		reader(200, 0);
 	}
 }
@@ -207,7 +206,7 @@ void TestB()
 {
 	int i = 0x1000;
 	while(1){
-		// disp_str("B.");
+		disp_str("B.");
 		// milli_delay(200);
 		reader(300, 1);
 	}
@@ -244,7 +243,7 @@ void TestF()
 {
 	int i = 0x5000;
 	while(1){
-
+		disp_str("wyx");
 		if(r_w_now==0){
 			char* msg="Now: Reading... Reader PRocess Number: ";
 			my_disp_str(msg);
