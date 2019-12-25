@@ -54,11 +54,11 @@ typedef struct s_task {
 }TASK;
 
 //新增信号量的定义
-typedef struct semaphore{
+struct semaphore{
 	int value;
 	PROCESS* list[20];
 	int list_len;
-}SEMAPHORE;
+}
 
 
 /* Number of tasks */
