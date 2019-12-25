@@ -96,10 +96,10 @@ PUBLIC int kernel_main()
 	reader_count=0;
 	writer_count=0;
 
-	rmutex->value=1;
-	rmutex2->value=1;	//允许读一本书的读者数
-	wmutex->value=1;
-	S->value=1;
+	rmutex.value=1;
+	rmutex2.value=1;	//允许读一本书的读者数
+	wmutex.value=1;
+	S.value=1;
 	rw_prio=0;
 
 	k_reenter = 0;
@@ -145,7 +145,7 @@ PUBLIC void reader(int milli_sec, int i){
 			P(&rmutex);
 			reader_count--;
 			if(reader_count==0){
-				V(wmutex);
+				V(&wmutex);
 			}
 			V(&rmutex);
 		}else if(rw_prio==1){
