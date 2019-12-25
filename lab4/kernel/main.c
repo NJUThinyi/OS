@@ -97,7 +97,7 @@ PUBLIC int kernel_main()
 	writer_count=0;
 
 	rmutex.value=1;
-	rmutex2.value=3;	//允许读一本书的读者数
+	rmutex2.value=2;	//允许读一本书的读者数
 	wmutex.value=1;
 	S.value=1;
 	rw_prio=0;
