@@ -261,7 +261,7 @@ void TestA()
 	int i = 0;
 	while (1) {
 		// milli_delay(200);
-		reader(200, 0);
+		reader(2000, 0);
 	}
 }
 
@@ -273,7 +273,7 @@ void TestB()
 	int i = 0x1000;
 	while(1){
 		// milli_delay(200);
-		reader(300, 1);
+		reader(3000, 1);
 	}
 }
 
@@ -284,7 +284,7 @@ void TestC()
 {
 	int i = 0x2000;
 	while(1){
-		reader(300, 2);
+		reader(3000, 2);
 	}
 }
 
@@ -292,7 +292,7 @@ void TestD()
 {
 	int i = 0x3000;
 	while(1){
-		writer(300, 3);
+		writer(3000, 3);
 	}
 }
 
@@ -300,7 +300,7 @@ void TestE()
 {
 	int i = 0x4000;
 	while(1){
-		writer(400, 4);
+		writer(4000, 4);
 	}
 }
 
@@ -336,7 +336,7 @@ void TestF()
 			char* msg="Now Writing...\n";
 			my_disp_str(msg);
 		}
-		process_sleep(100);
+		process_sleep(1000);
 		if(disp_pos>80*25){
 		disp_pos=0;
 		for(int i=0;i<80*25;i++){
