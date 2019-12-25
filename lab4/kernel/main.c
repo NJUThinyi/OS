@@ -132,9 +132,9 @@ PUBLIC void reader(int milli_sec, int i){
 	while(1){
 		disp_str(rw_prio+48);
 		if(rw_prio==0){	//读者优先
-			disp_str("reader...");
+			disp_str("reader1...");
 			P(&rmutex);
-			
+			disp_str("reader2...");
 			if(reader_count==0){
 				P(&wmutex);
 			}
