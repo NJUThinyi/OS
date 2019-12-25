@@ -41,16 +41,16 @@ PUBLIC void clock_handler(int irq);
 
 /* proc.c */
 PUBLIC  int     sys_get_ticks();        /* sys_call */
-PUBLIC  void    sys_process_sleep();
-PUBLIC  void    sys_my_disp_str();
-PUBLIC  void    sys_P();
-PUBLIC  void    sys_V();
+PUBLIC  void    sys_process_sleep(int milli_sec, SEMAPHORE* sem);
+PUBLIC  void    sys_my_disp_str(char* str);
+PUBLIC  void    sys_P(SEMAPHORE* sem);
+PUBLIC  void    sys_V(SEMAPHORE* sem);
 
 /* syscall.asm */
 PUBLIC  void    sys_call();             /* int_handler */
 PUBLIC  int     get_ticks();
 
-PUBLIC  void    process_sleep(PROCESS* proc);
+PUBLIC  void    process_sleep(int milli_sec);
 PUBLIC  void    my_disp_str(char* str);
 PUBLIC  void    P(SEMAPHORE* sem);
 PUBLIC  void    V(SEMAPHORE* sem);
