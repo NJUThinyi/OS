@@ -77,8 +77,8 @@ PUBLIC int sys_get_ticks()
 	return ticks;
 }
 
-// PUBLIC void sys_process_sleep(int milli_sec, struct s_proc* p){
-sys_process_sleep(int milli_sec, struct s_proc* p){
+PUBLIC void sys_process_sleep(int milli_sec, struct s_proc* p){
+// sys_process_sleep(int milli_sec, struct s_proc* p){
 	int now=get_ticks();
 	p->sleep_moment=now;
 	int seconds =  milli_sec * HZ /1000;
@@ -86,13 +86,13 @@ sys_process_sleep(int milli_sec, struct s_proc* p){
 	schedule_with_sleep(p);
 }
 
-// PUBLIC void sys_my_disp_str(char* str){
-sys_my_disp_str(char* str){
+PUBLIC void sys_my_disp_str(char* str){
+// sys_my_disp_str(char* str){
 	disp_str(str);
 }
 
-// PUBLIC void sys_P(struct semaphore *sem){
-sys_P(struct semaphore *sem){
+PUBLIC void sys_P(struct semaphore *sem){
+// sys_P(struct semaphore *sem){
 	sem->value--;
 	if(sem->value<0){
 		sem->list[sem->list_len] = p_proc_ready;
@@ -102,8 +102,8 @@ sys_P(struct semaphore *sem){
 	}
 }
 
-// PUBLIC void sys_V(struct semaphore *sem){
-sys_V(struct semaphore *sem){
+PUBLIC void sys_V(struct semaphore *sem){
+// sys_V(struct semaphore *sem){
 	sem->value++;
 	if(sem->value<=0){
 		p_proc_ready = sem->list[0];

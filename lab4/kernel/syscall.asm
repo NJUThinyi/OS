@@ -7,8 +7,8 @@
 
 %include "sconst.inc"
 
-_NR_get_ticks       equ 0 ; 要跟 global.c 中 sys_call_table 的定义相对应！
 INT_VECTOR_SYS_CALL equ 0x90
+_NR_get_ticks       equ 0 ; 要跟 global.c 中 sys_call_table 的定义相对应！
 
 _NR_process_sleep	equ 1
 _NR_my_disp_str		equ 2
@@ -53,6 +53,7 @@ P:
 	ret
 
 V:
+	mov eax, _NR_v
 	mov edx, [esp+4]
 	int INT_VECTOR_SYS_CALL
 	ret
