@@ -104,7 +104,7 @@ PUBLIC int kernel_main()
 	writer_count=0;
 
 	rmutex.value=1;
-	rmutex2.value=2;	//允许读一本书的读者数
+	rmutex2.value=3;	//允许读一本书的读者数
 	wmutex.value=1;
 	S.value=1;
 	x.value=1;
@@ -134,13 +134,6 @@ PUBLIC int kernel_main()
 	restart();
 
 	while(1){
-		if(disp_pos>80*24){
-			disp_pos=0;
-			for(int i=0;i<80*25;i++){
-				my_disp_str(" ");
-			}
-			disp_pos=0;
-		}
 	}
 }
 
@@ -148,14 +141,14 @@ PUBLIC void reader(int milli_sec, int i){
 	const char* names[3]={"Reader_A", "Reader_B", "Reader_C"};
 	while(1){
 		if(rw_prio==0){	//读者优先
-			P(&S);
+			// P(&S);
 			P(&rmutex);
 			if(reader_count==0){
 				P(&wmutex);
 			}
 			reader_count++;
 			V(&rmutex);
-			V(&S);
+			// V(&S);
 
 			P(&rmutex2);
 			r_w_now=0;
@@ -215,7 +208,7 @@ PUBLIC void writer(int milli_sec, int i){
 	const char* names[2]={"Writer_D", "Writer_E"};
 	while(1){
 		if(rw_prio==0){	//读者优先
-			P(&S);
+			// P(&S);
 			P(&wmutex);
 			r_w_now=1;
 			char *msg="Write Start! Process: ";
@@ -228,7 +221,7 @@ PUBLIC void writer(int milli_sec, int i){
 			disp_color_str(names[i-3],p_proc_ready->print_color);
 			disp_color_str("\n", p_proc_ready->print_color);
 			V(&wmutex);
-			V(&S);
+			// V(&S);
 		}else if(rw_prio==1){
 			P(&y);
 			writer_count++;
@@ -344,5 +337,12 @@ void TestF()
 			my_disp_str(msg);
 		}
 		process_sleep(100);
+	}
+	if(disp_pos>80*24){
+		disp_pos=0;
+		for(int i=0;i<80*25;i++){
+			my_disp_str(" ");
+		}
+		disp_pos=0;
 	}
 }
