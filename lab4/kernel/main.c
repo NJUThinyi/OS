@@ -127,7 +127,7 @@ PUBLIC int kernel_main()
 		disp_str(" ");
 	}
 	disp_pos=0;
-	
+
 	restart();
 
 	while(1){}
@@ -248,15 +248,32 @@ void TestF()
 	int i = 0x5000;
 	while(1){
 		if(r_w_now==0){
-			char* msg="Now: Reading... Reader PRocess Number: ";
+			char* msg="Now: Reading... Reader Process Number: ";
 			my_disp_str(msg);
 			char* count[4]={"0", "1", "2", "3"};
-			my_disp_str(count[reader_count]);
+			// my_disp_str(count[reader_count]);
+			switch (reader_count)
+			{
+			case 0:
+				my_disp_str("0");
+				break;
+			case 1:
+				my_disp_str("1");
+				break;
+			case 2:
+				my_disp_str("2");
+				break;
+			case 3:
+				my_disp_str("3");
+				break;
+			default:
+				break;
+			}
 			my_disp_str("\n");
 		}else if(r_w_now==1){
 			char* msg="Now Writing...\n";
 			my_disp_str(msg);
 		}
-		milli_delay(100);
+		process_sleep(100);
 	}
 }
