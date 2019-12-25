@@ -92,7 +92,7 @@ PUBLIC void sys_my_disp_str(char* str){
 }
 
 PUBLIC void sys_P(struct semaphore *sem){
-// sys_P(struct semaphore *sem){
+	disp_str("P...");
 	sem->value--;
 	if(sem->value<0){
 		sem->list[sem->list_len] = p_proc_ready;
