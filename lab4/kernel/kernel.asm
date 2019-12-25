@@ -349,7 +349,7 @@ sys_call:
 	push	ecx
 	push	ebx
         call    [sys_call_table + eax * 4]
-	add	esp, 4 * 4
+	add	esp, 4
 
 	pop	esi
         mov     [esi + EAXREG - P_STACKBASE], eax
