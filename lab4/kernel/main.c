@@ -154,7 +154,7 @@ PUBLIC void reader(int milli_sec, int i){
 }
 
 PUBLIC void writer(int milli_sec, int i){
-	char** names=["Writer_D", "Writer_E"];
+	char** names[2]={"Writer_D", "Writer_E"};
 	while(1){
 		if(rw_prio==0){	//读者优先
 			p(&wmutex);
