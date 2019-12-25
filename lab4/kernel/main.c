@@ -252,7 +252,8 @@ void TestF()
 		if(r_w_now==0){
 			char* msg="Now: Reading... Reader PRocess Number: ";
 			my_disp_str(msg);
-			my_disp_str(reader_count+48);
+			char* count[4]={"0", "1", "2", "3"};
+			my_disp_str(count[reader_count]);
 			my_disp_str("\n");
 		}else if(r_w_now==1){
 			char* msg="Now Writing...\n";
