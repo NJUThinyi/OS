@@ -316,7 +316,7 @@ void TestF()
 			char* msg="Now Writing...\n";
 			my_disp_str(msg);
 		}
-		process_sleep(1000);
+		milli_delay(1000);
 		if(disp_pos>160*25){
 			disp_pos=0;
 			for(int i=0;i<80*25;i++){
