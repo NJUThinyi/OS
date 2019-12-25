@@ -20,5 +20,7 @@ typedef	void	(*irq_handler)	(int irq);
 
 typedef void*	system_call;
 
+//新增
+typedef struct semaphore SEMAPHORE;
 
 #endif /* _ORANGES_TYPE_H_ */
