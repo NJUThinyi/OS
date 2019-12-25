@@ -45,15 +45,15 @@ PUBLIC int sys_get_ticks()
 	return ticks;
 }
 
-PUBLIC void sys_process_sleep(int milli_sec, SEMAPHORE* sem){
-	
+PUBLIC void sys_process_sleep(int milli_sec, struct semaphore* sem){
+
 }
 
 PUBLIC void sys_my_disp_str(char* str){
 	disp_str(str);
 }
 
-PUBLIC void sys_P(SEMAPHORE *sem){
+PUBLIC void sys_P(struct semaphore *sem){
 	sem->value--;
 	if(sem->value<0){
 		sem->list[sem->list_len] = p_proc_ready;
@@ -62,7 +62,7 @@ PUBLIC void sys_P(SEMAPHORE *sem){
 	}
 }
 
-PUBLIC void sys_V(SEMAPHORE *sem){
+PUBLIC void sys_V(struct semaphore *sem){
 	sem->value++;
 	if(sem->value<=0){
 		p_proc_ready = sem->list[0];
