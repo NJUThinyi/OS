@@ -130,7 +130,6 @@ PUBLIC int kernel_main()
 PUBLIC void reader(int milli_sec, int i){
 	const char* names[3]={"Reader_A", "Reader_B", "Reader_C"};
 	while(1){
-		disp_str(rw_prio+48);
 		if(rw_prio==0){	//读者优先
 			P(&rmutex);
 			if(reader_count==0){
