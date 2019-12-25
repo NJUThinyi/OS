@@ -50,3 +50,7 @@ PUBLIC  void    sys_V();
 PUBLIC  void    sys_call();             /* int_handler */
 PUBLIC  int     get_ticks();
 
+PUBLIC  void    process_sleep(PROCESS* proc);
+PUBLIC  void    my_disp_str(char* str);
+PUBLIC  void    P(SEMAPHORE* sem);
+PUBLIC  void    V(SEMAPHORE* sem);
