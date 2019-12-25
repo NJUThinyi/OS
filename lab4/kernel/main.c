@@ -100,8 +100,8 @@ PUBLIC int kernel_main()
 	rmutex2.value=3;	//允许读一本书的读者数
 	wmutex.value=1;
 	S.value=1;
-	// rw_prio=0;
-	rw_prio=1;
+	rw_prio=0;
+	// rw_prio=1;
 
 	k_reenter = 0;
 	ticks = 0;
