@@ -121,7 +121,7 @@ PUBLIC int kernel_main()
 }
 
 PUBLIC void reader(int milli_sec, int i){
-	char** names[3]={"Reader_A", "Reader_B", "Reader_C"};
+	const char* names[3]={"Reader_A", "Reader_B", "Reader_C"};
 	while(1){
 		if(rw_prio==0){	//读者优先
 			P(&rmutex);
@@ -155,7 +155,7 @@ PUBLIC void reader(int milli_sec, int i){
 }
 
 PUBLIC void writer(int milli_sec, int i){
-	char** names[2]={"Writer_D", "Writer_E"};
+	const char* names[2]={"Writer_D", "Writer_E"};
 	while(1){
 		if(rw_prio==0){	//读者优先
 			p(&wmutex);
