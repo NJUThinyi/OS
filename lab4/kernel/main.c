@@ -55,6 +55,13 @@ PUBLIC int kernel_main()
 		p_proc->regs.esp = (u32)p_task_stack;
 		p_proc->regs.eflags = 0x1202; /* IF=1, IOPL=1 */
 
+		//新增变量的初始化
+		p_proc->flag = 0;
+		p_proc->ticks=p_proc->priority=1;
+		p_proc->sleep_moment = 0;
+		p_proc->sleep_ticks = 0;
+		p_proc->print_color = 0x07;
+
 		p_task_stack -= p_task->stacksize;
 		p_proc++;
 		p_task++;
