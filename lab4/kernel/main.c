@@ -337,7 +337,7 @@ void TestF()
 			my_disp_str(msg);
 		}
 		process_sleep(1000);
-		if(disp_pos>80*25){
+		if(disp_pos>160*25){
 		disp_pos=0;
 		for(int i=0;i<80*25;i++){
 			my_disp_str(" ");
