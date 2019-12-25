@@ -42,7 +42,7 @@ process_sleep:
 
 my_disp_str:
 	mov eax, _NR_my_disp_str
-	mov edx, [esp+4]
+	mov ebx, [esp+4]
 	int INT_VECTOR_SYS_CALL
 	ret
 
