@@ -31,6 +31,7 @@ extern	irq_handler	irq_table[];
 
 EXTERN int reader_count;
 EXTERN int writer_count;
+EXTERN int ori_rm2_value;
 EXTERN struct semaphore rmutex; 
 EXTERN struct semaphore rmutex2; 
 EXTERN struct semaphore wmutex;
