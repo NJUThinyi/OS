@@ -77,7 +77,7 @@ PUBLIC int sys_get_ticks()
 	return ticks;
 }
 
-PUBLIC void sys_process_sleep(int milli_sec, PROCESS* p){
+PUBLIC void sys_process_sleep(int milli_sec, struct s_proc* p){
 	int now=get_ticks();
 	p->sleep_moment=now;
 	int seconds =  milli_sec * HZ /1000;

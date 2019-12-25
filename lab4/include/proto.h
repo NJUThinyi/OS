@@ -41,7 +41,7 @@ PUBLIC void clock_handler(int irq);
 
 /* proc.c */
 PUBLIC  int     sys_get_ticks();        /* sys_call */
-PUBLIC  void    sys_process_sleep(int milli_sec, PROCESS* p);
+PUBLIC  void    sys_process_sleep(int milli_sec, struct s_proc* p);
 PUBLIC  void    sys_my_disp_str(char* str);
 PUBLIC  void    sys_P(struct semaphore *sem);
 PUBLIC  void    sys_V(struct semaphore *sem);
