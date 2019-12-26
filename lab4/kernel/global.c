@@ -42,7 +42,7 @@ PUBLIC struct semaphore rmutex;
 PUBLIC struct semaphore rmutex2; 
 PUBLIC struct semaphore wmutex;
 PUBLIC struct semaphore S;
-PUBLIC struct semaphore x；
+PUBLIC struct semaphore x;
 PUBLIC struct semaphore y;
 PUBLIC struct semaphore z;
 PUBLIC int rw_prio; //0：读者优先（默认），1：写者优先
