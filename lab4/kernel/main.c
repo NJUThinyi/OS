@@ -101,6 +101,9 @@ PUBLIC int kernel_main()
 	ori_rm2_value=rmutex2.value;
 	wmutex.value=1;
 	S.value=1;
+	x.value=1;
+	y.value=1;
+	z.value=1;
 	rw_prio=1;
 	// rw_prio=1;
 
