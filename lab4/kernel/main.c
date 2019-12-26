@@ -104,7 +104,7 @@ PUBLIC int kernel_main()
 	x.value=1;
 	y.value=1;
 	z.value=1;
-	rw_prio=1;
+	rw_prio=2;
 	// rw_prio=1;
 
 	k_reenter = 0;
@@ -168,42 +168,7 @@ PUBLIC void reader(int milli_sec, int i){
 				V(&wmutex);
 			}
 			V(&rmutex);
-		}else if(rw_prio==1){
-			// P(&S);
-			// P(&rmutex);
-			// char* msg="Read Start! Process: ";
-			// disp_color_str(msg, p_proc_ready->print_color);
-			// disp_color_str(names[i],p_proc_ready->print_color);
-			// disp_color_str("\n", p_proc_ready->print_color);
-			// if(reader_count==0){
-			// 	P(&wmutex);
-			// }
-			// reader_count++;
-			// V(&rmutex);
-			// V(&S);
-			
-
-			// P(&rmutex2);
-			// r_w_now=0;
-			// msg="Reading...! Process: ";
-			// disp_color_str(msg, p_proc_ready->print_color);
-			// disp_color_str(names[i],p_proc_ready->print_color);
-			// disp_color_str("\n", p_proc_ready->print_color);
-			// milli_delay(milli_sec);
-			// msg="Read End! Process: ";
-			// disp_color_str(msg, p_proc_ready->print_color);
-			// disp_color_str(names[i],p_proc_ready->print_color);
-			// disp_color_str("\n", p_proc_ready->print_color);
-			// V(&rmutex2);
-
-			// P(&rmutex);
-			// reader_count--;
-			// if(reader_count==0){
-			// 	V(&wmutex);
-			// }
-			// V(&rmutex);
-
-			
+		}else if(rw_prio==1){	
 			P(&z);
 			P(&rmutex);
 			P(&x);
@@ -238,7 +203,40 @@ PUBLIC void reader(int milli_sec, int i){
 				V(&wmutex);
 			}
 			V(&x);
+		}else if(rw_prio==2){
+			P(&S);
+			P(&rmutex);
+			char* msg="Read Start! Process: ";
+			disp_color_str(msg, p_proc_ready->print_color);
+			disp_color_str(names[i],p_proc_ready->print_color);
+			disp_color_str("\n", p_proc_ready->print_color);
+			if(reader_count==0){
+				P(&wmutex);
+			}
+			reader_count++;
+			V(&rmutex);
+			V(&S);
+			
 
+			P(&rmutex2);
+			r_w_now=0;
+			msg="Reading...! Process: ";
+			disp_color_str(msg, p_proc_ready->print_color);
+			disp_color_str(names[i],p_proc_ready->print_color);
+			disp_color_str("\n", p_proc_ready->print_color);
+			milli_delay(milli_sec);
+			msg="Read End! Process: ";
+			disp_color_str(msg, p_proc_ready->print_color);
+			disp_color_str(names[i],p_proc_ready->print_color);
+			disp_color_str("\n", p_proc_ready->print_color);
+			V(&rmutex2);
+
+			P(&rmutex);
+			reader_count--;
+			if(reader_count==0){
+				V(&wmutex);
+			}
+			V(&rmutex);
 		}
 	}
 }
@@ -265,28 +263,7 @@ PUBLIC void writer(int milli_sec, int i){
 			disp_color_str("\n", p_proc_ready->print_color);
 			V(&wmutex);
 			// V(&S);
-		}else if(rw_prio==1){
-
-		// 	P(&S);
-		// char *msg="Write Start! Process: ";
-		// disp_color_str(msg, p_proc_ready->print_color);
-		// disp_color_str(names[i-3],p_proc_ready->print_color);
-		// disp_color_str("\n", p_proc_ready->print_color);
-		// 	P(&wmutex);
-		// 	r_w_now=1;
-		// 	msg="Writing...! Process: ";
-		// 	disp_color_str(msg, p_proc_ready->print_color);
-		// 	disp_color_str(names[i-3],p_proc_ready->print_color);
-		// 	disp_color_str("\n", p_proc_ready->print_color);
-		// 	milli_delay(milli_sec);
-		// 	msg="Write End! Process: ";
-		// 	disp_color_str(msg, p_proc_ready->print_color);
-		// 	disp_color_str(names[i-3],p_proc_ready->print_color);
-		// 	disp_color_str("\n", p_proc_ready->print_color);
-		// 	V(&wmutex);
-
-		// 	V(&S);
-
+		}else if(rw_prio==1){		
 			P(&y);
 			char *msg="Write Start! Process: ";
 			disp_color_str(msg, p_proc_ready->print_color);
@@ -318,6 +295,25 @@ PUBLIC void writer(int milli_sec, int i){
 			}
 			V(&y);
 
+		}else if(rw_prio==2){
+			P(&S);
+			char *msg="Write Start! Process: ";
+			disp_color_str(msg, p_proc_ready->print_color);
+			disp_color_str(names[i-3],p_proc_ready->print_color);
+			disp_color_str("\n", p_proc_ready->print_color);
+			P(&wmutex);
+			r_w_now=1;
+			msg="Writing...! Process: ";
+			disp_color_str(msg, p_proc_ready->print_color);
+			disp_color_str(names[i-3],p_proc_ready->print_color);
+			disp_color_str("\n", p_proc_ready->print_color);
+			milli_delay(milli_sec);
+			msg="Write End! Process: ";
+			disp_color_str(msg, p_proc_ready->print_color);
+			disp_color_str(names[i-3],p_proc_ready->print_color);
+			disp_color_str("\n", p_proc_ready->print_color);
+			V(&wmutex);
+			V(&S);
 		}
 	}
 }
