@@ -64,7 +64,7 @@ LOOP:	for (p = &proc_table; p <= &proc_table[NR_TASKS-1]; p++) {
 		}
 		
 		if(p_proc_ready == s_p && (get_ticks() - p_proc_ready->sleep_moment < p_proc_ready->sleep_ticks)){
-				goto LOOP;//如果执行上面的循环，得到应执行的进程是睡眠进程，且已经睡眠的时间小于规定睡眠时间，重新调度
+				goto LOOP;
 		}
 	}
 }
