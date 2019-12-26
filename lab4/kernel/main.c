@@ -166,18 +166,55 @@ PUBLIC void reader(int milli_sec, int i){
 			}
 			V(&rmutex);
 		}else if(rw_prio==1){
-			P(&S);
+			// P(&S);
+			// P(&rmutex);
+			// char* msg="Read Start! Process: ";
+			// disp_color_str(msg, p_proc_ready->print_color);
+			// disp_color_str(names[i],p_proc_ready->print_color);
+			// disp_color_str("\n", p_proc_ready->print_color);
+			// if(reader_count==0){
+			// 	P(&wmutex);
+			// }
+			// reader_count++;
+			// V(&rmutex);
+			// V(&S);
+			
+
+			// P(&rmutex2);
+			// r_w_now=0;
+			// msg="Reading...! Process: ";
+			// disp_color_str(msg, p_proc_ready->print_color);
+			// disp_color_str(names[i],p_proc_ready->print_color);
+			// disp_color_str("\n", p_proc_ready->print_color);
+			// milli_delay(milli_sec);
+			// msg="Read End! Process: ";
+			// disp_color_str(msg, p_proc_ready->print_color);
+			// disp_color_str(names[i],p_proc_ready->print_color);
+			// disp_color_str("\n", p_proc_ready->print_color);
+			// V(&rmutex2);
+
+			// P(&rmutex);
+			// reader_count--;
+			// if(reader_count==0){
+			// 	V(&wmutex);
+			// }
+			// V(&rmutex);
+
+			
+			P(&z);
 			P(&rmutex);
+			P(&x);
 			char* msg="Read Start! Process: ";
 			disp_color_str(msg, p_proc_ready->print_color);
 			disp_color_str(names[i],p_proc_ready->print_color);
 			disp_color_str("\n", p_proc_ready->print_color);
-			if(reader_count==0){
+			reader_count++;
+			if(reader_count==1){
 				P(&wmutex);
 			}
-			reader_count++;
+			V(&x);
 			V(&rmutex);
-			V(&S);
+			V(&z);
 
 			P(&rmutex2);
 			r_w_now=0;
@@ -192,12 +229,13 @@ PUBLIC void reader(int milli_sec, int i){
 			disp_color_str("\n", p_proc_ready->print_color);
 			V(&rmutex2);
 
-			P(&rmutex);
+			P(&x);
 			reader_count--;
 			if(reader_count==0){
 				V(&wmutex);
 			}
-			V(&rmutex);
+			V(&x);
+
 		}
 	}
 }
@@ -206,30 +244,52 @@ PUBLIC void writer(int milli_sec, int i){
 	const char* names[2]={"Writer_D", "Writer_E"};
 	while(1){
 		if(rw_prio==0){	//读者优先
-			char *msg="Write Start! Process: ";
-			disp_color_str(msg, p_proc_ready->print_color);
-			disp_color_str(names[i-3],p_proc_ready->print_color);
-			disp_color_str("\n", p_proc_ready->print_color);
-			// P(&S);
-			P(&wmutex);
-			r_w_now=1;
-			msg="Writing...! Process: ";
-			disp_color_str(msg, p_proc_ready->print_color);
-			disp_color_str(names[i-3],p_proc_ready->print_color);
-			disp_color_str("\n", p_proc_ready->print_color);
-			milli_delay(milli_sec);
-			msg="Write End! Process: ";
-			disp_color_str(msg, p_proc_ready->print_color);
-			disp_color_str(names[i-3],p_proc_ready->print_color);
-			disp_color_str("\n", p_proc_ready->print_color);
-			V(&wmutex);
-			// V(&S);
-		}else if(rw_prio==1){
-			P(&S);
-			char *msg="Write Start! Process: ";
-			disp_color_str(msg, p_proc_ready->print_color);
-			disp_color_str(names[i-3],p_proc_ready->print_color);
-			disp_color_str("\n", p_proc_ready->print_color);
+		// 	char *msg="Write Start! Process: ";
+		// 	disp_color_str(msg, p_proc_ready->print_color);
+		// 	disp_color_str(names[i-3],p_proc_ready->print_color);
+		// 	disp_color_str("\n", p_proc_ready->print_color);
+		// 	// P(&S);
+		// 	P(&wmutex);
+		// 	r_w_now=1;
+		// 	msg="Writing...! Process: ";
+		// 	disp_color_str(msg, p_proc_ready->print_color);
+		// 	disp_color_str(names[i-3],p_proc_ready->print_color);
+		// 	disp_color_str("\n", p_proc_ready->print_color);
+		// 	milli_delay(milli_sec);
+		// 	msg="Write End! Process: ";
+		// 	disp_color_str(msg, p_proc_ready->print_color);
+		// 	disp_color_str(names[i-3],p_proc_ready->print_color);
+		// 	disp_color_str("\n", p_proc_ready->print_color);
+		// 	V(&wmutex);
+		// 	// V(&S);
+		// }else if(rw_prio==1){
+		// 	P(&S);
+		// 	char *msg="Write Start! Process: ";
+		// 	disp_color_str(msg, p_proc_ready->print_color);
+		// 	disp_color_str(names[i-3],p_proc_ready->print_color);
+		// 	disp_color_str("\n", p_proc_ready->print_color);
+		// 	P(&wmutex);
+		// 	r_w_now=1;
+		// 	msg="Writing...! Process: ";
+		// 	disp_color_str(msg, p_proc_ready->print_color);
+		// 	disp_color_str(names[i-3],p_proc_ready->print_color);
+		// 	disp_color_str("\n", p_proc_ready->print_color);
+		// 	milli_delay(milli_sec);
+		// 	msg="Write End! Process: ";
+		// 	disp_color_str(msg, p_proc_ready->print_color);
+		// 	disp_color_str(names[i-3],p_proc_ready->print_color);
+		// 	disp_color_str("\n", p_proc_ready->print_color);
+		// 	V(&wmutex);
+
+		// 	V(&S);
+
+			P(&y);
+			writer_count++;
+			if(writer_count==1){
+				P(&rmutex);
+			}
+			V(&y);
+
 			P(&wmutex);
 			r_w_now=1;
 			msg="Writing...! Process: ";
@@ -243,7 +303,13 @@ PUBLIC void writer(int milli_sec, int i){
 			disp_color_str("\n", p_proc_ready->print_color);
 			V(&wmutex);
 
-			V(&S);
+			P(&y);
+			writer_count--;
+			if(writer_count==0){
+				V(&rmutex);
+			}
+			V(&y);
+
 		}
 	}
 }
